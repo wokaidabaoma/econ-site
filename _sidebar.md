@@ -1,5 +1,8 @@
 * [首页](README.md)
 
+* 申请季Tips
+
+
 * ECON  
   * [目录 – 经济学方向 Intro](econ/intro.md)  
   * [Chapter 0. 过来人的 econ 申请总结](econ/econ-0.md)  
