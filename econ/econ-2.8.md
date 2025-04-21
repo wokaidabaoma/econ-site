@@ -7,7 +7,7 @@ Cornell MS AEM（Applied Economics and Management）是康奈尔大学 Dyson 商
 - **学制**：2 年，2022 年更新为 STEM 项目  
 - **招生规模**：每年 40-50 人左右，国人比例中等偏低  
 - **Track 分支**：食品与农业 / 环境与能源 / 发展 / 管理方向，不设硬性分流  
-- **项目强项**：农业经济方向最强，PhD 导向学生常选 Applied Econ
+- **项目强项**：农业经济方向最强，PhD 导向学生常选 Applied Econ，eere也很强但是chair马上去其他学校了。
 
 ---
 
@@ -52,7 +52,7 @@ Cornell MS AEM（Applied Economics and Management）是康奈尔大学 Dyson 商
 
 ---
 
-###  就业 / 实习 / 项目定位
+###  非phd的就业 / 实习 / 项目定位
 
 - **职业方向**：以回国就业为主，title 认可度高，部分学生实习于银行 / 咨询 / 数据分析  
 - **实习安排**：签证允许即可自由找实习，项目不限制；第一学期因课业紧张实习投递不多  

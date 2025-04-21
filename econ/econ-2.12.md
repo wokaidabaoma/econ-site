@@ -30,8 +30,9 @@
 #### 读博去向（Placement）
 
 - **留校路径优秀**：UW-Madison 本身 econ 排名高，留校深造是主流路径；
-- **Top 30–50 Econ PhD 去向较稳**，有学生被哥大、港大、莱斯、UNC 等录取；
+- **Top 30–50 Econ PhD 去向较稳**，有学生被哥大、港大、Rice、UNC 等录取；
 - 也有部分硕士阶段明确转向 biz school（商学院），以做 RA 争取进入 marketing、finance 等 PhD；
+
 - **非 pre-doc 路径中国学生上限约为 Top 15**，最终去向与本科背景关系较大，整体同 cohort 能力差异明显，个体选择“卷与不卷”皆可，毕业门槛不高。
 
 ####  校园体验

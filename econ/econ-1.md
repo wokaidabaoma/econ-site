@@ -3,7 +3,6 @@
 ---
 
 
-
 经济学属于 **社会科学**，相对于 Management / Finance / BA / DA / MKT 等分析和管理类商科，econ 整体的“**应用性**”比传统商科低，**学术性更高**。
 
 因此，虽然经济学和 💰 相关，但这是一门偏研究型学科。如果大家真的想做研究，且有不错的学术经历和教授强推 + 强烈意愿读美国博士，**pre-doc 比跳板硕性价比更高（难度也更大）**。本篇暂不讨论 pre-doc。
@@ -13,15 +12,17 @@ Econ 类 Master Program 可按项目研究领域（项目命名）分为：
 - Applied Economics（AE）
 - “量化社科”
 
-也可按申请目标分为：
+也可按申请目标分为：（也是本网站的分类）
 - “PhD 跳板型”
 - “就业友好型”
 
 ---
 
+先从项目命名中看项目的研究方向：
+
 ## 1. Econ（经济学）
 
-所谓 “纯 Econ” 项目设置重理论经济研究：**高级宏观 / 微观 / 计量经济学** 在理论和模型上的突破。
+所谓 “纯 Econ” 项目设置重理论经济研究：主修**高级宏观 / 微观 / 计量经济学** 在理论和模型上的突破。
 
 对应地，经济学除了对本专业知识有要求之外，**最注重的是数学能力**（⚠️非统计 / 编程等应用门类）。换句话说，如果数学在本科阶段已是短板，那么要慎重考虑 Econ PhD 这条路。
 
@@ -29,13 +30,13 @@ Econ 类 Master Program 可按项目研究领域（项目命名）分为：
 - **三件套**：线代、概率统计、多元微积分
 - 高阶数学：微分方程、实分析、随机过程、优化等
 
-🎓 研究型硕士：
+这类研究型硕士：
 - RA 机会多，读博比例高，奖学金大方
 - 教授 connection 好
-- 课程比重，数学难度高
+- 有选修更高阶理论课的机会，和本科生一起上的应用课程要求不多，数学难度高
 
 **典型项目**：
-UChi-MAPSS (econ)、UChi-MACSS (econ)、Duke-MAE、Columbia-MAE、NYU-MSQE、UT-Austin-MAE、Tufts-MAE、wisc-MAE、WUSTL-MAE
+UChi-MAPSS Econ (26 fall 改名MAE)、UChi-MACSS (econ)、Duke-MAE、Columbia-MAE、NYU-MSQE、UT-Austin-MAE、Tufts-MAE、wisc-MAE、WUSTL-MAE
 
 ---
 
@@ -68,6 +69,8 @@ JHU-AE/FE、USC-AEE、BU-Econ/Policy Econ、BC-Econ
 
 **典型项目：**  
 UChi-MACSS、Columbia-QMSS、Upenn-MSSP-(DA)、UCLA-MASS、CMU-MSPPM、Georgetown-MS DSPP
+
+当然，项目的命名并不决定学生的最终去向，在此只是略做介绍。
 
 > 本站内容会持续更新，现在网站在试运行阶段，谢谢大家的关注，也欢迎大家分享～
 
