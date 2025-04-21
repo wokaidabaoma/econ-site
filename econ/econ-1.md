@@ -2,7 +2,7 @@
 
 ---
 
-## Chapter 1｜Econ 类项目总述
+
 
 经济学属于 **社会科学**，相对于 Management / Finance / BA / DA / MKT 等分析和管理类商科，econ 整体的“**应用性**”比传统商科低，**学术性更高**。
 
@@ -68,3 +68,11 @@ JHU-AE/FE、USC-AEE、BU-Econ/Policy Econ、BC-Econ
 
 **典型项目：**  
 UChi-MACSS、Columbia-QMSS、Upenn-MSSP-(DA)、UCLA-MASS、CMU-MSPPM、Georgetown-MS DSPP
+
+> 本站内容会持续更新，现在网站在试运行阶段，谢谢大家的关注，也欢迎大家分享～
+
+
+<p style="font-size: 0.85rem; color: #888; text-align: center; margin-top: 3rem;">
+© 2025 猿人之家 · 由 Anna 独立开发与维护 
+</p>
+

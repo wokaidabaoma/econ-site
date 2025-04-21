@@ -5,15 +5,20 @@
   <title>猿人之家 · 美国商科选校指南</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="stylesheet" href="custom.css">
 </head>
 <body>
   <div id="app">加载中...</div>
 
   <script>
-    window.$docsify = {
-      loadSidebar: true
-    }
-  </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  window.$docsify = {
+    loadSidebar: true,
+    subMaxLevel: 2, // 控制折叠层级
+    sidebarDisplayLevel: 1 // 默认展开到第几层
+  }
+</script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+<script src="//unpkg.com/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+
 </body>
 </html>

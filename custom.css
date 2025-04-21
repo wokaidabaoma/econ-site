@@ -1,0 +1,55 @@
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f9f7f3;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+  color: #333;
+  line-height: 1.7;
+}
+
+#app {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === 侧边栏样式 === */
+.sidebar {
+  background-color: #ffffff;
+  border-right: 1px solid #e0ddd5;
+}
+
+.sidebar a {
+  color: #444 !important;
+}
+
+.app-name {
+  color: #222;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 1rem;
+}
+
+/* === 主内容区域 === */
+.markdown-section {
+  max-width: 850px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  min-height: calc(100vh - 6rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* === 页脚/按钮/链接增强样式（可选） === */
+a {
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: #0077aa;
+}
