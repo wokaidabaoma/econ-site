@@ -3,13 +3,13 @@
 * 申请季Tips
 
 
-* ECON  
+* ECON ⬇️ 
 
   * [目录 – 经济学方向 Intro](econ/intro.md)  
   * [Chapter 0. 过来人的 econ 申请总结](econ/econ-0.md)  
   * [Chapter 1. Econ 项目拆解总纲](econ/econ-1.md)  
   
-  *  Chapter 2. “跳板硕”系列  
+  *  Chapter 2. “跳板硕”系列 ⬇️ 
     * [2.0  跳板硕前言](econ/econ-2.0.md)
     * [2.1 Uchi - MAPSS](econ/econ-2.1.md)
     * [2.2 Uchi - MACSS](econ/econ-2.2.md)
@@ -25,7 +25,7 @@
     * [2.12 Wisc Econ三专业](econ/econ-2.12.md)
     * [2.13 UCD - ARE](econ/econ-2.13.md)
     
-  * Chapter 3. 偏就业导向econ硕
+  * Chapter 3. 偏就业导向econ硕 ⬇️
     * [3.1 UCLA - MQE ](econ/econ-3.1.md)
     * [3.2 JHU MIEF](econ/econ-3.2.md)
     * [3.3 Cornell MPS AEM -- 猿人所在](econ/econ-3.3.md)
