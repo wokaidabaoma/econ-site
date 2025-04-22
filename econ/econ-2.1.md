@@ -1,4 +1,4 @@
-### 2.2 UChicago MAPSS - Econ方向
+### 2.1 UChicago MAPSS - Econ方向
 
 
 UChicago MAPSS-Econ 是众多申请者考虑的读博跳板项目之一，凭借芝加哥大学本身的声望、资源和课程设置，在目标明确、基础扎实的同学中极具吸引力。

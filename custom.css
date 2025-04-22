@@ -1,55 +1,103 @@
+/* ========== 全局基础美化 ========== */
 
-html, body {
-  height: 100%;
-  margin: 0;
-  background-color: #f9f7f3;
-  font-family: "Helvetica Neue", "Arial", sans-serif;
-  color: #333;
-  line-height: 1.7;
-}
-
-#app {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* === 侧边栏样式 === */
-.sidebar {
-  background-color: #ffffff;
-  border-right: 1px solid #e0ddd5;
-}
-
-.sidebar a {
-  color: #444 !important;
-}
-
-.app-name {
-  color: #222;
-  font-size: 1.4rem;
-  font-weight: 600;
-  padding: 1rem;
-}
-
-/* === 主内容区域 === */
+/* 正文区域居中 + 卡片效果 */
 .markdown-section {
-  max-width: 850px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
-  border-radius: 8px;
-  min-height: calc(100vh - 6rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  max-width: 800px;
+  margin: 3rem auto;
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
-/* === 页脚/按钮/链接增强样式（可选） === */
-a {
-  transition: all 0.2s ease;
+/* 主页标题样式 */
+.markdown-section h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-a:hover {
-  color: #0077aa;
+/* 副标题样式 */
+.markdown-section h2,
+.markdown-section h3 {
+  font-weight: 600;
+  color: #334155;
+  margin-top: 2.5rem;
+}
+
+/* 正文文字 */
+.markdown-section p,
+.markdown-section li {
+  line-height: 1.75;
+  font-size: 16px;
+  color: #444;
+}
+
+/* 引用块样式 */
+.markdown-section blockquote {
+  background-color: #f9f9f9;
+  border-left: 5px solid #ccc;
+  padding: 1rem 1.5rem;
+  font-style: normal;
+  font-size: 15px;
+  color: #555;
+  margin: 2rem 0;
+  border-radius: 6px;
+}
+
+/* 分隔线更柔和 */
+.markdown-section hr {
+  border: none;
+  height: 1px;
+  background-color: #eee;
+  margin: 2.5rem 0;
+}
+
+/* 链接颜色优化 */
+.markdown-section a {
+  color: #007e5e;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.markdown-section a:hover {
+  text-decoration: underline;
+}
+
+/* emoji 不要太小 */
+.markdown-section p {
+  font-size: 16px;
+}
+
+.markdown-section p > img.emoji {
+  height: 1.2em;
+  vertical-align: middle;
+}
+
+/* 🎯 调整 sidebar 切换按钮（仅移动端） */
+
+@media screen and (max-width: 768px) {
+  .sidebar-toggle {
+    position: fixed;
+    bottom: auto;
+    top: 1rem;
+    left: 1rem;
+    z-index: 9999;
+
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    text-align: center;
+    line-height: 36px;
+  }
+
+  .sidebar-toggle span {
+    font-size: 24px;
+  }
 }

@@ -1,7 +1,7 @@
 <h1 id="top">欢迎来到猿人之家-美国商科选校指南！</h1>
 
 
-🎓 本项目致力于为申请美国商科相关硕士项目（Fin, BA , Econ , DS , Management , Fintech，Marketing 以及其他商科交叉项目）的同学减少信息差，会提供：
+本站致力于为申请美国商科相关硕士项目（Fin, BA , Econ , DS , Management , Fintech，Marketing 以及其他商科交叉项目）的同学减少信息差，会提供：
 
 -  项目的基本信息
 -  项目分类对比 （不同导向）
