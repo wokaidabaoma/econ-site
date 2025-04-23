@@ -1,7 +1,10 @@
 * [首页](README.md)
 
-* 申请季Tips
+* 申请季Tips ⬇️
 
+  * [申请季前期- 心态与准备](update/update-1.md)  
+  * [申请季中期- 网申注意事项](update/update-2.md) 
+  *
 
 * ECON ⬇️ 
 
@@ -30,3 +33,18 @@
     * [3.2 JHU MIEF](econ/econ-3.2.md)
     * [3.3 Cornell MPS AEM -- 猿人所在](econ/econ-3.3.md)
     
+    
+    
+* BA ⬇️
+
+
+
+* Finance ⬇️
+
+
+
+* Management ⬇️
+
+
+
+

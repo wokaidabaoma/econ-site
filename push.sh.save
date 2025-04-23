@@ -1,0 +1,22 @@
+#!/bin/bash
+
+cd /Users/anniecao/business-grad-guide || exit
+
+echo "📂 当前目录：$(pwd)"
+echo "🔍 检查改动中..."
+git status
+
+git add .
+
+read -p "✏️ 请输入提交说明（默认：更新网站内容）: " msg
+msg=${msg:-"更新网站内容"}
+
+git commit -m "$msg"
+git push origin main
+
+open "https://yuanrenannie.com"
+
+echo "✅ Push 成功！网站内容已更新～"
+
+
+
