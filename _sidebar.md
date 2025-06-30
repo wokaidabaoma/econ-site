@@ -32,11 +32,22 @@
     * [3.1 UCLA - MQE ](econ/econ-3.1.md)
     * [3.2 JHU MIEF](econ/econ-3.2.md)
     * [3.3 Cornell MPS AEM -- 猿人所在](econ/econ-3.3.md)
-    
+    * [3.4 Umich MAE](econ/econ-3.4.md)
     
     
 * BA ⬇️
-
+  * [0  商分专业前言](ba/ba-intro.md)
+  
+  *  Chapter 1. “更多元背景”系列 ⬇️ 
+    * [1.1 Columbia - MSBA](ba/ba-1.1.md)
+    * [1.2 Duke - MQM](ba/ba-1.2.md)
+    * [1.3 CMU - MISM BIDA](ba/ba-1.3.md)
+    * [1.4 CMU - MSBA](ba/ba-1.4.md)
+    * [1.5 Emory - MSBA](ba/ba-1.5.md)
+    * [1.6 USC - MSBA](ba/ba-1.6.md)
+    * [1.7 JHU - BAAI](ba/ba-1.7.md)
+    * [1.8 WUSTL - MSBA](ba/ba-1.8.md)
+    * [1.9 Norte Dame - MSBA](ba/ba-1.9.md)
 
 
 * Finance ⬇️
