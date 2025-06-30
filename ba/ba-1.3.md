@@ -1,8 +1,8 @@
-## ba-1.3 CMU MISM-BIDA 项目体验总结
+### 1.3 CMU MISM-BIDA 项目体验总结
 
-### **CMU Heinz College – BIDA 项目介绍（Business Intelligence and Data Analytics）**
+---
 
-#### **基本信息**
+### **基本信息**
 
 - **项目名称**：Master of Information Systems Management: Business Intelligence and Data Analytics (MISM-BIDA)
 - **所属院系**：Heinz College of Information Systems and Public Policy

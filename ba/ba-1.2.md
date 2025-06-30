@@ -1,8 +1,6 @@
 ### ba-1.2 Duke MQM 
 
 
-###  项目概况
-
 - **项目全称**：Master of Quantitative Management: Business Analytics
 - **所属院系**：Duke University Fuqua School of Business
 - **项目时长**：10个月（五个学期，课程密集）
