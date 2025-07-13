@@ -13,23 +13,86 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
     <div className="homepage">
       {/* 主标题区域 */}
       <header className="main-header">
-        <h1 id="top">欢迎来到猿人之家-美国商科选校指南！</h1>
+        <div className="header-title-section">
+          <h1 id="top">
+            <span className="title-main">猿人之家</span>
+            <span className="title-sub">美国商科选校指南</span>
+          </h1>
+          <div className="header-subtitle">
+            <span className="subtitle-highlight">数据驱动</span> · 
+            <span className="subtitle-highlight">信息透明</span> · 
+            <span className="subtitle-highlight">申请无差</span>
+          </div>
+        </div>
         
         <div className="intro-content">
-          <p>本站致力于为申请美国商科相关硕士项目（Fin, BA , Econ , DS , Management , Fintech，Marketing 以及其他商科交叉项目）的同学减少信息差，会提供：</p>
-          
-          <ul className="feature-list">
-            <li>项目的基本信息</li>
-            <li>项目分类对比 （不同导向）</li>
-            <li>26fall申请时间线与准备清单 （等待今年夏秋学校官网信息更新）</li>
-            <li>项目录取趋势与就业数据</li>
-            <li>看似小众其实很香的项目推荐</li>
-          </ul>
+          <div className="intro-section">
+            <div className="section-header">
+              <span className="section-icon">🎯</span>
+              <h3>我们的使命</h3>
+            </div>
+            <p className="intro-description">
+              致力于为申请美国商科相关硕士项目的同学减少信息差，覆盖 
+              <span className="highlight-tag">Finance</span>、
+              <span className="highlight-tag">Business Analytics</span>、
+              <span className="highlight-tag">Economics</span>、
+              <span className="highlight-tag">Data Science</span>、
+              <span className="highlight-tag">Management</span>、
+              <span className="highlight-tag">Fintech</span>、
+              <span className="highlight-tag">Marketing</span> 
+              等商科交叉项目
+            </p>
+          </div>
 
-          <div className="philosophy">
-            <p>🐒 猿人理念："bar"的作用只限于选取保底校，不能因为哪个项目看起来"bar高"就拍脑袋去。</p>
-            <p>所以建议同学们，在选校之前，要明确自己的未来导向：留美/回国？读博/找工？</p>
-            <p>也需要先考虑学制/区域/预算等因素。</p>
+          <div className="intro-section">
+            <div className="section-header">
+              <span className="section-icon">📋</span>
+              <h3>核心内容</h3>
+            </div>
+            <div className="feature-grid">
+              <div className="feature-item">
+                <div className="feature-dot"></div>
+                <span>项目基本信息与申请要求</span>
+              </div>
+              <div className="feature-item">
+                <div className="feature-dot"></div>
+                <span>项目分类对比（不同导向分析）</span>
+              </div>
+              <div className="feature-item">
+                <div className="feature-dot"></div>
+                <span>26fall申请时间线与准备清单</span>
+              </div>
+              <div className="feature-item">
+                <div className="feature-dot"></div>
+                <span>录取趋势与就业数据分析</span>
+              </div>
+              <div className="feature-item">
+                <div className="feature-dot"></div>
+                <span>小众但优质的项目推荐</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="philosophy-section">
+            <div className="philosophy-header">
+              <span className="philosophy-icon">🐒</span>
+              <h3>猿人理念</h3>
+            </div>
+            <div className="philosophy-content">
+              <div className="philosophy-quote">
+                "bar"的作用只限于选取保底校，不能因为哪个项目看起来"bar高"就拍脑袋去。
+              </div>
+              <div className="philosophy-points">
+                <div className="point-item">
+                  <span className="point-icon">→</span>
+                  <span>明确未来导向：留美 vs 回国？读博 vs 找工？</span>
+                </div>
+                <div className="point-item">
+                  <span className="point-icon">→</span>
+                  <span>综合考虑：学制、地理位置、预算等关键因素</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </header>
