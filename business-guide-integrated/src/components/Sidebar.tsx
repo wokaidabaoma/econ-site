@@ -59,7 +59,7 @@ const sidebarData: SidebarItem[] = [
   {
     title: '📊 BA',
     children: [
-      { title: '0 商分专业前言', path: '/article/ba/ba-intro' },
+      { title: '🚧 前言建设中...', path: '#' },
       {
         title: 'Chapter 1. "更多元背景"系列',
         children: [

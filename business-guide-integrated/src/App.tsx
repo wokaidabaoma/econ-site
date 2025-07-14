@@ -29,18 +29,10 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
           <div className="intro-section">
             <div className="section-header">
               <span className="section-icon">🎯</span>
-              <h3>我们的使命</h3>
+              <h3>猿人安妮建站目的</h3>
             </div>
             <p className="intro-description">
-              致力于为申请美国商科相关硕士项目的同学减少信息差，覆盖 
-              <span className="highlight-tag">Finance</span>、
-              <span className="highlight-tag">Business Analytics</span>、
-              <span className="highlight-tag">Economics</span>、
-              <span className="highlight-tag">Data Science</span>、
-              <span className="highlight-tag">Management</span>、
-              <span className="highlight-tag">Fintech</span>、
-              <span className="highlight-tag">Marketing</span> 
-              等商科交叉项目
+              <strong>致力于为申请美国商科相关硕士项目的同学减少信息差</strong>，覆盖 Finance、Business Analytics、Economics、Data Science、Management、Fintech、Marketing 等商科交叉项目
             </p>
           </div>
 
