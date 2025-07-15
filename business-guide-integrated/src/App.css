@@ -347,8 +347,48 @@ body {
   border-radius: var(--border-radius);
   padding: 3rem 2rem;
   margin-bottom: 3rem;
-  box-shadow: var(--shadow-soft);
-  border: 2px solid rgba(181, 160, 130, 0.1);
+  box-shadow: var(--shadow-medium);
+  border: 2px solid rgba(181, 160, 130, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.selector-showcase::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-gradient);
+}
+
+/* 功能升级标记 */
+.feature-upgrade-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff6b6b, #ff8787);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* 增强工具描述 */
+.tool-description-enhanced {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 /* 筛选器优势文本描述 */
@@ -447,6 +487,33 @@ body {
 
 .action-card.clickable:hover::before {
   left: 100%;
+}
+
+/* 特殊样式：突出筛选器工具 */
+.action-card.clickable:first-child {
+  background: linear-gradient(135deg, #fff8f0 0%, #fffbf5 100%);
+  border: 2px solid var(--primary-color);
+  box-shadow: var(--shadow-medium);
+  position: relative;
+}
+
+.action-card.clickable:first-child::after {
+  content: '⭐ 重点推荐';
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  background: var(--primary-gradient);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(181, 160, 130, 0.4);
+}
+
+.action-card.clickable:first-child:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(181, 160, 130, 0.3);
 }
 
 .tool-header {

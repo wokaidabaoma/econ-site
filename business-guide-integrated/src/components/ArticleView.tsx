@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+// import { loadArticleContent } from '../data/articles';
 
 const ArticleView: React.FC = () => {
   const { category, filename } = useParams<{ category: string; filename: string }>();
@@ -98,16 +99,49 @@ const ArticleView: React.FC = () => {
       <div className="article-footer">
         <Link to="/" className="back-home-btn">返回首页</Link>
         
-        {/* 统一的版权信息区域 */}
+        {/* 水印和版权信息区域 */}
         <div style={{
           textAlign: 'center',
           padding: '2rem 1rem 1rem',
           marginTop: '2rem',
-          borderTop: '1px solid #eee',
-          color: 'var(--text-secondary)',
-          fontSize: '0.85rem'
+          borderTop: '1px solid #eee'
         }}>
-          © 2025 猿人之家 · 由 Anna 独立开发与维护
+          {/* 水印图片 */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '1rem'
+          }}>
+            <img 
+              src="/annie-watermark.png" 
+              alt="猿人安妮水印" 
+              style={{
+                height: '40px',
+                width: 'auto',
+                opacity: 0.8,
+                filter: 'grayscale(20%)'
+              }}
+            />
+          </div>
+          
+          {/* 版权信息 */}
+          <div style={{
+            color: 'var(--text-secondary)',
+            fontSize: '0.85rem',
+            marginBottom: '0.5rem'
+          }}>
+            © 2025 猿人之家 · 由 Anna 独立开发与维护
+          </div>
+          
+          {/* 附加信息 */}
+          <div style={{
+            color: 'var(--text-secondary)',
+            fontSize: '0.75rem',
+            opacity: 0.8
+          }}>
+            内容原创，转载请注明出处
+          </div>
         </div>
       </div>
     </div>

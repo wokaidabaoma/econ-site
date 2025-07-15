@@ -18,7 +18,7 @@ type OptionType = {
 const SelectorApp: React.FC = () => {
   const csvUrl =
     'https://docs.google.com/spreadsheets/d/1kINLW00e-oPJB-a0M-kejB6PrGAhrKukuBViAHqxyPc/export?format=csv';
-  const programData = useCSV(csvUrl);
+  const { data: programData, loading, error, retry } = useCSV(csvUrl);
 
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
   const [selectedUniversity, setSelectedUniversity] = useState<OptionType[]>([]);
@@ -35,38 +35,73 @@ const SelectorApp: React.FC = () => {
   const pageSize = 10;
 
   const allFields = useMemo(
-    () => (programData.length > 0 ? Object.keys(programData[0]) : []),
+    () => {
+      try {
+        return (programData && programData.length > 0 && programData[0]) ? Object.keys(programData[0]) : [];
+      } catch (error) {
+        console.error('获取字段列表时出错:', error);
+        return [];
+      }
+    },
     [programData]
   );
 
   const getOptions = (field: string): OptionType[] => {
-    const values = new Set(
-      programData
-        .map(item => item[field])
-        .filter(value => value !== null && value !== undefined && value !== '')
-    );
+    // 数据未加载完成时返回空数组
+    if (!programData || programData.length === 0) {
+      return [];
+    }
     
-    const optionsArray = Array.from(values).map(v => ({ value: String(v), label: String(v) }));
-    return optionsArray.sort();
+    try {
+      const values = new Set(
+        programData
+          .map(item => item && item[field])
+          .filter(value => value !== null && value !== undefined && value !== '' && value !== 'undefined')
+      );
+      
+      const optionsArray = Array.from(values).map(v => ({ 
+        value: String(v).trim(), 
+        label: String(v).trim() 
+      }));
+      
+      return optionsArray.sort((a, b) => a.label.localeCompare(b.label));
+    } catch (error) {
+      console.error('获取选项时出错:', error);
+      return [];
+    }
   };
 
   const getUniversityOptions = (): OptionType[] => {
-    let filteredData = programData;
-    
-    if (selectedLocation.length > 0) {
-      filteredData = programData.filter(item => 
-        selectedLocation.some(loc => String(item['Location']) === loc.value)
-      );
+    // 数据未加载完成时返回空数组
+    if (!programData || programData.length === 0) {
+      return [];
     }
     
-    const values = new Set(
-      filteredData
-        .map(item => item['University'])
-        .filter(value => value !== null && value !== undefined && value !== '')
-    );
-    
-    const optionsArray = Array.from(values).map(v => ({ value: String(v), label: String(v) }));
-    return optionsArray.sort();
+    try {
+      let filteredData = programData;
+      
+      if (selectedLocation.length > 0) {
+        filteredData = programData.filter(item => 
+          item && selectedLocation.some(loc => String(item['Location']).trim() === loc.value)
+        );
+      }
+      
+      const values = new Set(
+        filteredData
+          .map(item => item && item['University'])
+          .filter(value => value !== null && value !== undefined && value !== '' && value !== 'undefined')
+      );
+      
+      const optionsArray = Array.from(values).map(v => ({ 
+        value: String(v).trim(), 
+        label: String(v).trim() 
+      }));
+      
+      return optionsArray.sort((a, b) => a.label.localeCompare(b.label));
+    } catch (error) {
+      console.error('获取大学选项时出错:', error);
+      return [];
+    }
   };
 
   const extractScore = (str: string): number => {
@@ -76,7 +111,14 @@ const SelectorApp: React.FC = () => {
   };
 
   const filterData = () => {
+    // 数据未加载完成时返回空数组
+    if (!programData || programData.length === 0) {
+      return [];
+    }
+    
     return programData.filter(row => {
+      // 确保 row 存在
+      if (!row) return false;
       const matchLanguageSlider = (selectedScore: number | null, field: string) => {
         if (selectedScore === null) return true;
         
@@ -180,6 +222,105 @@ const SelectorApp: React.FC = () => {
     setSelectedGRE(Array.from(newValue));
   };
 
+  // 加载状态显示
+  if (loading) {
+    return (
+      <div className="selector-app">
+        <div className="selector-header">
+          <Link to="/" className="back-to-home">← 返回首页</Link>
+          <div className="header-content">
+            <h2>英港新-商科硕士项目-申请数据库</h2>
+            <p>猿人安妮 Anna Cao - 独立制作与维护, 持续更新中</p>
+          </div>
+        </div>
+        
+        <div className="loading-container" style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '3rem',
+          minHeight: '300px'
+        }}>
+          <div className="loading-spinner" style={{
+            width: '40px',
+            height: '40px',
+            border: '4px solid #f3f3f3',
+            borderTop: '4px solid #007bff',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            marginBottom: '1rem'
+          }}></div>
+          <p style={{ fontSize: '1.1rem', color: '#666' }}>
+            {error || '正在加载项目数据...'}
+          </p>
+          <p style={{ fontSize: '0.9rem', color: '#888' }}>
+            首次加载可能需要几秒钟，请耐心等待
+          </p>
+        </div>
+        
+        <style>{`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // 错误状态显示
+  if (error && !loading) {
+    return (
+      <div className="selector-app">
+        <div className="selector-header">
+          <Link to="/" className="back-to-home">← 返回首页</Link>
+          <div className="header-content">
+            <h2>英港新-商科硕士项目-申请数据库</h2>
+            <p>猿人安妮 Anna Cao - 独立制作与维护, 持续更新中</p>
+          </div>
+        </div>
+        
+        <div className="error-container" style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '3rem',
+          minHeight: '300px'
+        }}>
+          <div style={{
+            fontSize: '3rem',
+            marginBottom: '1rem'
+          }}>⚠️</div>
+          <h3 style={{ color: '#dc3545', marginBottom: '1rem' }}>
+            数据加载失败
+          </h3>
+          <p style={{ fontSize: '1.1rem', color: '#666', marginBottom: '1rem', textAlign: 'center' }}>
+            {error}
+          </p>
+          <button
+            onClick={retry}
+            style={{
+              padding: '0.75rem 1.5rem',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              fontSize: '1rem'
+            }}
+          >
+            🔄 重新加载
+          </button>
+          <p style={{ fontSize: '0.9rem', color: '#888', marginTop: '1rem' }}>
+            如果问题持续，请尝试刷新页面或稍后再试
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="selector-app">
       {/* 页面头部 */}
@@ -242,7 +383,10 @@ const SelectorApp: React.FC = () => {
             value={selectedLocation}
             onChange={handleLocationChange}
             components={animatedComponents}
-            placeholder="选择地点..."
+            placeholder={loading ? "加载中..." : "选择地点..."}
+            noOptionsMessage={() => loading ? "数据加载中..." : "无可用选项"}
+            isLoading={loading}
+            loadingMessage={() => "正在加载选项..."}
             menuPortalTarget={document.body}
             menuPosition="absolute"
             maxMenuHeight={200}
@@ -262,6 +406,8 @@ const SelectorApp: React.FC = () => {
               menuPortal: base => ({ ...base, zIndex: 9999 })
             }}
             closeMenuOnSelect={false}
+            isClearable={true}
+            backspaceRemovesValue={true}
           />
         </div>
 
@@ -274,7 +420,10 @@ const SelectorApp: React.FC = () => {
             value={selectedUniversity}
             onChange={handleUniversityChange}
             components={animatedComponents}
-            placeholder={selectedLocation.length > 0 ? "选择该地区的学校..." : "请先选择地点，或直接选择学校..."}
+            placeholder={loading ? "加载中..." : (selectedLocation.length > 0 ? "选择该地区的学校..." : "请先选择地点，或直接选择学校...")}
+            noOptionsMessage={() => loading ? "数据加载中..." : (selectedLocation.length > 0 ? "该地区暂无学校数据" : "请先选择地点")}
+            isLoading={loading}
+            loadingMessage={() => "正在加载选项..."}
             menuPortalTarget={document.body}
             menuPosition="absolute"
             maxMenuHeight={200}

@@ -16,10 +16,9 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
         <div className="header-title-section">
           <h1 id="top">
             <span className="title-main">猿人之家</span>
-            <span className="title-sub">美国商科选校指南</span>
+            <span className="title-sub">硕士留学一站式信息平台</span>
           </h1>
           <div className="header-subtitle">
-            <span className="subtitle-highlight">数据驱动</span> · 
             <span className="subtitle-highlight">信息透明</span> · 
             <span className="subtitle-highlight">申请无差</span>
           </div>
@@ -32,7 +31,7 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
               <h3>猿人安妮建站目的</h3>
             </div>
             <p className="intro-description">
-              <strong>致力于为申请美国商科相关硕士项目的同学减少信息差</strong>，覆盖 Finance、Business Analytics、Economics、Data Science、Management、Fintech、Marketing 等商科交叉项目
+              <strong>致力于为申请美英港新加澳商科相关硕士项目的同学减少信息差</strong>，覆盖 Finance、Business Analytics、Economics、Data Science、Management、Fintech、Marketing 等商科交叉项目
             </p>
           </div>
 
@@ -92,8 +91,9 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
       {/* 筛选器工具展示区域 */}
       <section className="selector-showcase">
         <div className="tool-header">
+          <div className="feature-upgrade-badge">🚀 功能升级</div>
           <h2>🎓 港新商科硕士项目筛选器</h2>
-          <p>香港+新加坡硕士项目一站式筛选，支持多维度筛选对比</p>
+          <p className="tool-description-enhanced">香港+新加坡硕士项目一站式筛选，支持多维度筛选对比</p>
         </div>
         
         {/* 筛选器优势文本描述 */}
