@@ -4,6 +4,7 @@ import './App.css';
 import SelectorApp from './components/SelectorApp';
 import Sidebar from './components/Sidebar';
 import ArticleView from './components/ArticleView';
+import { Analytics } from '@vercel/analytics/react';
 
 // 主页组件
 const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
@@ -18,10 +19,7 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
             <span className="title-main">猿人之家</span>
             <span className="title-sub">硕士留学一站式信息平台</span>
           </h1>
-          <div className="header-subtitle">
-            <span className="subtitle-highlight">信息透明</span> · 
-            <span className="subtitle-highlight">申请无差</span>
-          </div>
+
         </div>
         
         <div className="intro-content">
@@ -252,6 +250,9 @@ const App: React.FC = () => {
             <Route path="/article/:category/:filename" element={<ArticleView />} />
           </Routes>
         </main>
+        
+        <Analytics />
+
       </div>
     </Router>
   );
