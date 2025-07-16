@@ -170,6 +170,14 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
         src="/annie-watermark.png"
         alt=""
         className="card-watermark"
+        onError={(e) => {
+          console.error('手机端水印图片加载失败');
+          const target = e.currentTarget;
+          target.style.display = 'none';
+        }}
+        onLoad={() => {
+          console.log('✅ 手机端水印图片加载成功！');
+        }}
       />
       
       <div className="card-content">
