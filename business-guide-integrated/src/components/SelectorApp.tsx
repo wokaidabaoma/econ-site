@@ -24,7 +24,7 @@ const SelectorApp: React.FC = () => {
   const [selectedUniversity, setSelectedUniversity] = useState<OptionType[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<OptionType[]>([]);
   const [selectedProgramType, setSelectedProgramType] = useState<OptionType[]>([]);
-  const [selectedDuration, setSelectedDuration] = useState<OptionType[]>([]);
+  const [selectedQSRank, setSelectedQSRank] = useState<OptionType[]>([]);
   
   const [selectedIELTS, setSelectedIELTS] = useState<number | null>(null);
   const [selectedTOEFL, setSelectedTOEFL] = useState<number | null>(null);
@@ -71,6 +71,15 @@ const SelectorApp: React.FC = () => {
     }
   };
 
+  // QS排名筛选选项
+  const getQSRankOptions = (): OptionType[] => {
+    return [
+      { value: '50', label: '前50名' },
+      { value: '100', label: '前100名' },
+      { value: '200', label: '前200名' }
+    ];
+  };
+
   const getUniversityOptions = (): OptionType[] => {
     // 数据未加载完成时返回空数组
     if (!programData || programData.length === 0) {
@@ -110,6 +119,14 @@ const SelectorApp: React.FC = () => {
     return match ? parseFloat(match[1]) : 0;
   };
 
+  const extractQSRank = (str: string): number => {
+    if (!str) return 999;
+    const cleanStr = String(str).trim();
+    if (cleanStr === '-' || cleanStr === '' || cleanStr.toLowerCase() === 'n/a') return 999;
+    const match = cleanStr.match(/(\d+)/);
+    return match ? parseInt(match[1]) : 999;
+  };
+
   const filterData = () => {
     // 数据未加载完成时返回空数组
     if (!programData || programData.length === 0) {
@@ -119,6 +136,7 @@ const SelectorApp: React.FC = () => {
     return programData.filter(row => {
       // 确保 row 存在
       if (!row) return false;
+      
       const matchLanguageSlider = (selectedScore: number | null, field: string) => {
         if (selectedScore === null) return true;
         
@@ -154,6 +172,17 @@ const SelectorApp: React.FC = () => {
         return ieltsMatch || toeflMatch;
       };
 
+      const matchQSRank = () => {
+        if (selectedQSRank.length === 0) return true;
+        
+        const rowQSRank = extractQSRank(row['QSRank']);
+        
+        // 获取选中的最大排名范围
+        const maxRank = Math.max(...selectedQSRank.map(option => parseInt(option.value)));
+        
+        return rowQSRank <= maxRank;
+      };
+
       const match = (selected: OptionType[], field: string) =>
         selected.length === 0 || selected.some(opt => String(row[field]) === opt.value);
 
@@ -161,7 +190,7 @@ const SelectorApp: React.FC = () => {
         match(selectedLocation, 'Location') &&
         match(selectedUniversity, 'University') &&
         match(selectedProgramType, 'ProgramType') &&
-        match(selectedDuration, 'Duration') &&
+        matchQSRank() &&
         matchLanguageTest() &&
         match(selectedGRE, 'TestRequiredGRE')
       );
@@ -182,7 +211,7 @@ const SelectorApp: React.FC = () => {
     selectedUniversity,
     selectedLocation,
     selectedProgramType,
-    selectedDuration,
+    selectedQSRank,
     selectedIELTS,
     selectedTOEFL,
     selectedGRE
@@ -204,8 +233,8 @@ const SelectorApp: React.FC = () => {
     setSelectedProgramType(Array.from(newValue));
   };
 
-  const handleDurationChange = (newValue: MultiValue<OptionType>) => {
-    setSelectedDuration(Array.from(newValue));
+  const handleQSRankChange = (newValue: MultiValue<OptionType>) => {
+    setSelectedQSRank(Array.from(newValue));
   };
 
   const handleIELTSChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -349,7 +378,7 @@ const SelectorApp: React.FC = () => {
           <div style={{marginBottom: '0.8rem'}}>
             <strong>2️⃣ 项目筛选：</strong><br/>
             • <strong>项目类型</strong>：选择感兴趣的专业方向（Finance、BA、Economics等）<br/>
-            • <strong>学制</strong>：根据时间安排选择1年制、1.5年制或2年制项目
+            • <strong>QS排名</strong>：按学校排名筛选（前50包含在前100中，前100包含在前200中）
           </div>
           
           <div style={{marginBottom: '0.8rem'}}>
@@ -368,7 +397,7 @@ const SelectorApp: React.FC = () => {
           </div>
           
           <div style={{color: '#d4a574', fontWeight: '600'}}>
-            💡 <strong>使用技巧</strong>：建议先设置语言成绩，再选择地区和项目类型，这样能快速找到符合条件的项目！
+            💡 <strong>使用技巧</strong>：建议先设置语言成绩和QS排名，再选择地区和项目类型，这样能快速找到符合条件的项目！
           </div>
         </div>
       </div>
@@ -473,16 +502,16 @@ const SelectorApp: React.FC = () => {
           />
         </div>
 
-        {/* Duration */}
+        {/* QS Rank */}
         <div className="filter-item">
-          <label>📅 学制 Duration</label>
+          <label>🏆 QS排名 QSRank</label>
           <Select<OptionType, true>
-            options={getOptions('Duration')}
+            options={getQSRankOptions()}
             isMulti
-            value={selectedDuration}
-            onChange={handleDurationChange}
+            value={selectedQSRank}
+            onChange={handleQSRankChange}
             components={animatedComponents}
-            placeholder="选择学制..."
+            placeholder="选择排名范围..."
             menuPortalTarget={document.body}
             menuPosition="absolute"
             maxMenuHeight={200}
@@ -498,6 +527,14 @@ const SelectorApp: React.FC = () => {
             }}
             closeMenuOnSelect={false}
           />
+          <div style={{
+            marginTop: '0.5rem',
+            fontSize: '0.8rem',
+            color: '#666',
+            fontStyle: 'italic'
+          }}>
+            💡 提示：前50包含在前100中，前100包含在前200中
+          </div>
         </div>
 
         {/* IELTS 拖动条 */}
@@ -598,7 +635,7 @@ const SelectorApp: React.FC = () => {
             setSelectedLocation([]);
             setSelectedUniversity([]);
             setSelectedProgramType([]);
-            setSelectedDuration([]);
+            setSelectedQSRank([]);
             setSelectedIELTS(null);
             setSelectedTOEFL(null);
             setSelectedGRE([]);
@@ -611,6 +648,22 @@ const SelectorApp: React.FC = () => {
           共找到 {filteredData.length} 个项目
         </div>
       </div>
+
+      {/* QS排名筛选状态显示 */}
+      {selectedQSRank.length > 0 && (
+        <div className="language-filter-status">
+          <div className="status-title">🏆 当前QS排名筛选条件</div>
+          <div className="status-content">
+            <div>
+              <strong>显示排名范围：</strong> 
+              QS排名 ≤ {Math.max(...selectedQSRank.map(option => parseInt(option.value)))} 的学校
+            </div>
+            <div className="status-note">
+              已选择：{selectedQSRank.map(option => option.label).join('、')}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 筛选状态显示 */}
       {(selectedIELTS !== null || selectedTOEFL !== null) && (

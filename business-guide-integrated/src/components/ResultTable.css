@@ -1,4 +1,4 @@
-/* ResultTable.css - 移动端完全优化版本 */
+/* ResultTable.css - 手机端卡片优化版本 */
 
 :root {
   --primary-color: #a8b5a0;
@@ -60,7 +60,117 @@
   transform: translateY(-1px);
 }
 
-/* 📦 表格容器样式 */
+/* 📱 手机端卡片容器 */
+.mobile-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+/* 📱 手机端卡片样式 */
+.mobile-card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(168, 181, 160, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.mobile-card:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+/* 📱 卡片水印 */
+.card-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: auto;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 1;
+  filter: grayscale(40%) brightness(1.3);
+}
+
+/* 📱 卡片内容区域 */
+.card-content {
+  position: relative;
+  z-index: 2;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+}
+
+/* 📱 卡片字段行 */
+.card-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(168, 181, 160, 0.1);
+}
+
+.card-field:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* 📱 字段标签 */
+.field-label {
+  font-weight: 600;
+  color: var(--primary-color);
+  min-width: 80px;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* 📱 字段值 */
+.field-value {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  flex: 1;
+}
+
+/* 📱 特殊字段样式 */
+.card-field:has(.field-label:contains("学校")) .field-value {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.card-field:has(.field-label:contains("项目名称")) .field-value {
+  font-weight: 500;
+  color: var(--secondary-color);
+  font-size: 0.95rem;
+}
+
+.card-field:has(.field-label:contains("备注")) {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.card-field:has(.field-label:contains("备注")) .field-value {
+  white-space: pre-wrap;
+  line-height: 1.5;
+  background: rgba(168, 181, 160, 0.05);
+  padding: 0.5rem;
+  border-radius: 6px;
+  width: 100%;
+}
+
+/* 📦 桌面端表格容器样式 */
 .table-container {
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-medium);
@@ -94,7 +204,7 @@
   background: var(--secondary-color);
 }
 
-/* 📊 表格样式 - 桌面端 */
+/* 📊 桌面端表格样式 */
 .styled-table {
   border-collapse: collapse;
   width: 100%;
@@ -148,7 +258,7 @@
   font-size: 0.8rem;
 }
 
-/* 列样式定义 */
+/* 桌面端列样式定义 */
 .styled-table td.notes,
 .styled-table th.notes {
   min-width: 250px;
@@ -214,7 +324,7 @@
   max-width: 100px;
 }
 
-/* 🎨 行悬停效果 */
+/* 🎨 桌面端行悬停效果 */
 .styled-table tr td {
   background-color: rgba(255, 255, 255, 0.7);
 }
@@ -291,118 +401,119 @@
   color: var(--text-primary);
 }
 
-/* 📱 移动端完全重新设计 */
+/* 🎨 空状态样式 */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-soft);
+  margin: 1rem 0;
+}
+
+.empty-state h3 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* 🎨 版权信息样式 */
+.copyright-info {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #faf9f7 0%, #f2f0eb 100%);
+  border-radius: 8px;
+  border: 1px solid rgba(168, 181, 160, 0.15);
+}
+
+.copyright-main {
+  color: rgba(168, 181, 160, 0.9);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.copyright-sub {
+  color: rgba(107, 99, 90, 0.7);
+  font-size: 11px;
+}
+
+/* 📱 手机端响应式设计 */
 @media (max-width: 768px) {
-  /* 🎯 移动端表格控制区域 */
+  /* 🎯 手机端表格控制区域 */
   .table-info {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
     text-align: center;
     padding: 1rem;
   }
   
+  .table-info > div:first-child {
+    order: 1;
+  }
+  
   .control-buttons {
+    order: 2;
     justify-content: center;
     width: 100%;
   }
   
+  /* 🎯 手机端隐藏模式切换按钮 */
   .mode-toggle {
-    flex: 1;
-    max-width: 150px;
-    padding: 0.8rem;
-    font-size: 0.9rem;
+    display: none;
   }
   
-  /* 🎯 移动端表格容器 */
-  .table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 12px;
+  /* 📱 手机端卡片容器优化 */
+  .mobile-cards-container {
+    gap: 0.8rem;
+    padding: 0.25rem;
   }
   
-  /* 🎯 移动端表格样式 */
-  .styled-table {
-    min-width: 100%;
-    font-size: 0.85rem;
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+  /* 📱 手机端卡片优化 */
+  .mobile-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(168, 181, 160, 0.1);
   }
   
-  .styled-table thead,
-  .styled-table tbody,
-  .styled-table th,
-  .styled-table td,
-  .styled-table tr {
-    display: block;
+  .mobile-card:hover {
+    box-shadow: 0 6px 20px rgba(168, 181, 160, 0.15);
+    transform: translateY(-1px);
   }
   
-  .styled-table thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
+  /* 📱 卡片内容区域优化 */
+  .card-content {
+    padding: 0.875rem;
   }
   
-  /* 🎯 移动端卡片式布局 */
-  .styled-table tbody tr {
-    background: white;
-    border: 1px solid rgba(168, 181, 160, 0.1);
-    border-radius: var(--border-radius);
-    margin-bottom: 1rem;
-    padding: 1rem;
-    box-shadow: var(--shadow-soft);
-    position: relative;
+  /* 📱 卡片字段行优化 */
+  .card-field {
+    margin-bottom: 0.6rem;
+    padding: 0.2rem 0;
   }
   
-  .styled-table tbody tr:hover {
-    box-shadow: var(--shadow-medium);
-    transform: translateY(-2px);
-    transition: all 0.3s ease;
-  }
-  
-  .styled-table td {
-    border: none;
-    padding: 0.5rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    min-height: auto;
-    max-width: none;
-    white-space: normal;
-    text-overflow: initial;
-    overflow: visible;
-  }
-  
-  .styled-table td::before {
-    content: attr(data-label) ": ";
-    font-weight: 600;
-    color: var(--primary-color);
-    flex-shrink: 0;
-    margin-right: 1rem;
-    min-width: 80px;
+  .field-label {
+    min-width: 75px;
     font-size: 0.85rem;
   }
   
-  .styled-table td:last-child {
-    border-bottom: none;
+  .field-value {
+    font-size: 0.85rem;
   }
   
-  /* 🎯 移动端特殊列样式 */
-  .styled-table td.notes {
-    flex-direction: column;
-    align-items: flex-start;
+  /* 📱 卡片水印优化 */
+  .card-watermark {
+    width: 120px;
+    opacity: 0.06;
   }
   
-  .styled-table td.notes::before {
-    margin-bottom: 0.5rem;
-    margin-right: 0;
-  }
-  
-  .styled-table td.number {
-    text-align: left;
-  }
-  
-  /* 🎯 移动端分页器 */
+  /* 🎯 手机端分页器 */
   .pagination {
     flex-direction: column;
     gap: 1rem;
@@ -424,29 +535,36 @@
 
 /* 📱 超小屏幕优化 */
 @media (max-width: 480px) {
-  .table-info {
-    padding: 0.8rem;
+  .mobile-cards-container {
+    gap: 0.6rem;
+    padding: 0.125rem;
   }
   
-  .mode-toggle {
-    padding: 0.7rem;
-    font-size: 0.85rem;
+  .mobile-card {
+    border-radius: 8px;
   }
   
-  .styled-table tbody tr {
-    padding: 0.8rem;
-    margin-bottom: 0.8rem;
+  .card-content {
+    padding: 0.75rem;
   }
   
-  .styled-table td {
-    padding: 0.4rem 0;
-    font-size: 0.85rem;
+  .card-field {
+    margin-bottom: 0.5rem;
+    padding: 0.15rem 0;
   }
   
-  .styled-table td::before {
-    font-size: 0.8rem;
+  .field-label {
     min-width: 70px;
-    margin-right: 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .field-value {
+    font-size: 0.8rem;
+  }
+  
+  .card-watermark {
+    width: 100px;
+    opacity: 0.05;
   }
   
   .pagination {
@@ -497,55 +615,4 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-/* 🎨 空状态样式 */
-.empty-state {
-  text-align: center;
-  padding: 3rem 1rem;
-  background: white;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-soft);
-  margin: 1rem 0;
-}
-
-.empty-state h3 {
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-}
-
-.empty-state p {
-  color: var(--text-secondary);
-  margin-bottom: 0.5rem;
-  line-height: 1.6;
-}
-
-/* 🎨 水印样式优化 */
-.watermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 350px;
-  height: auto;
-  opacity: 0.12;
-  pointer-events: none;
-  z-index: 2;
-  filter: grayscale(40%) brightness(1.3);
-  mix-blend-mode: soft-light;
-}
-
-/* 移除有问题的CSS背景图片 */
-
-@media (max-width: 768px) {
-  .watermark {
-    width: 200px;
-    opacity: 0.08;
-  }
-  
-  .table-container.watermarked::after {
-    background-size: 200px auto;
-    opacity: 0.05;
-  }
 }
