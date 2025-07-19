@@ -27,8 +27,6 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
 
   // 判断是否全选
   const isAllSelected = selectedFields.length === allFields.length;
-  // 判断是否部分选择
-  const isIndeterminate = selectedFields.length > 0 && selectedFields.length < allFields.length;
 
   return (
     <div style={{ margin: '1rem 0' }}>
