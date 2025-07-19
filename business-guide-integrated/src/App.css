@@ -577,6 +577,23 @@ body {
   box-shadow: 0 8px 25px rgba(255, 36, 66, 0.4);
 }
 
+.social-btn.wechat {
+  background: linear-gradient(135deg, #00d463, #00c755);
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 212, 99, 0.3);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.social-btn.wechat:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 212, 99, 0.4);
+}
+
 .social-btn.email {
   background: var(--primary-gradient);
   color: white;

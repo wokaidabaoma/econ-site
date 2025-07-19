@@ -174,11 +174,24 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
             >
               📕 小红书
             </a>
+            <button 
+              onClick={() => {
+                const wechatId = 'yuanshenanna';
+                navigator.clipboard.writeText(wechatId).then(() => {
+                  alert(' 微信号已复制到剪贴板！\n\n微信号：yuanshenanna\n（猿神安娜的全拼）\n\n请在微信中添加好友时粘贴使用～');
+                }).catch(() => {
+                  alert('微信号：yuanshenanna\n（猿神安娜的全拼）\n\n请手动复制微信号添加好友～');
+                });
+              }}
+              className="social-btn wechat"
+            >
+              💬 微信联系
+            </button>
             <a 
               href="mailto:yuanrenannie@gmail.com" 
               className="social-btn email"
             >
-              📬 联系猿人
+              📬 邮件联系
             </a>
           </div>
         </div>
