@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function FieldSelector({ allFields, selectedFields, onChange }: Props) {
-  // 字段中文名称映射（与 ResultTable.tsx 保持一致）
+  // 字段中文名称映射（包括已经是中文的字段）
   const FIELD_LABELS: Record<string, string> = {
     'University': '学校',
     'Location': '地区',
@@ -25,16 +25,16 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
     'TuitionFeeCNY': '学费(人民币)',
     'QSRank': 'QS排名',
     'Notes': '备注',
-    // 新增六个备注字段的中文标签
-    'LanguageSpecialRequirements': '语言特殊要求',
-    'ApplicantBackgroundRequirements': '申请者背景要求',
-    'ApplicantDegreeRequirements': '申请者学位要求',
-    'ProgramFeatures': '项目特色',
-    'CurriculumSetup': '课程设置',
-    'OtherImportantInfo': '其他重要信息'
+    // CSV中使用的中文字段名
+    '语言特殊要求': '语言特殊要求',
+    '申请者背景要求': '申请者背景要求',
+    '申请者学位要求': '申请者学位要求',
+    '项目特色': '项目特色',
+    '课程设置': '课程设置',
+    '其他重要信息': '其他重要信息'
   };
 
-  // 固定的字段显示顺序（与 ResultTable.tsx 保持一致）
+  // 固定的字段显示顺序（包括中文字段名）
   const FIELD_ORDER = [
     'University',
     'Location', 
@@ -52,13 +52,13 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
     'TuitionFeeCNY',
     'QSRank',
     'Notes',
-    // 新增的六个备注字段
-    'LanguageSpecialRequirements',
-    'ApplicantBackgroundRequirements',
-    'ApplicantDegreeRequirements',
-    'ProgramFeatures',
-    'CurriculumSetup',
-    'OtherImportantInfo'
+    // CSV中的中文字段名
+    '语言特殊要求',
+    '申请者背景要求',
+    '申请者学位要求',
+    '项目特色',
+    '课程设置',
+    '其他重要信息'
   ];
 
   // 过滤掉 ProgramID，并按照固定顺序排列
@@ -115,10 +115,10 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
       'TuitionFeeCNY',
       'QSRank',
       'Notes',
-      'LanguageSpecialRequirements',
-      'ApplicantBackgroundRequirements',
-      'ApplicantDegreeRequirements',
-      'ProgramFeatures'
+      '语言特殊要求',
+      '申请者背景要求',
+      '申请者学位要求',
+      '项目特色'
     ];
     onChange(detailedFields.filter(field => displayFields.includes(field)));
   };
@@ -213,14 +213,14 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
         backgroundColor: '#f8f9fa'
       }}>
         {displayFields.map((field) => {
-          // 为新增的六个备注字段添加特殊标记
+          // 为新增的六个备注字段添加特殊标记（使用中文字段名）
           const isNewNoteField = [
-            'LanguageSpecialRequirements',
-            'ApplicantBackgroundRequirements',
-            'ApplicantDegreeRequirements',
-            'ProgramFeatures',
-            'CurriculumSetup',
-            'OtherImportantInfo'
+            '语言特殊要求',
+            '申请者背景要求',
+            '申请者学位要求',
+            '项目特色',
+            '课程设置',
+            '其他重要信息'
           ].includes(field);
           
           return (

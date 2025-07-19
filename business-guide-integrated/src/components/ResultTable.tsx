@@ -55,13 +55,13 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
     'TuitionFeeCNY',
     'QSRank',
     'Notes',
-    // 新增的六个备注字段
-    'LanguageSpecialRequirements',    // 语言特殊要求
-    'ApplicantBackgroundRequirements', // 申请者背景要求
-    'ApplicantDegreeRequirements',     // 申请者学位要求
-    'ProgramFeatures',                 // 项目特色
-    'CurriculumSetup',                 // 课程设置
-    'OtherImportantInfo'               // 其他重要信息
+    // CSV中使用的中文字段名
+    '语言特殊要求',
+    '申请者背景要求',
+    '申请者学位要求',
+    '项目特色',
+    '课程设置',
+    '其他重要信息'
     // ProgramID 已移除，不在表格中显示
   ];
 
@@ -83,13 +83,13 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
     'TuitionFeeCNY': '学费(人民币)',
     'QSRank': 'QS排名',
     'Notes': '备注',
-    // 新增六个备注字段的中文标签
-    'LanguageSpecialRequirements': '语言特殊要求',
-    'ApplicantBackgroundRequirements': '申请者背景要求',
-    'ApplicantDegreeRequirements': '申请者学位要求',
-    'ProgramFeatures': '项目特色',
-    'CurriculumSetup': '课程设置',
-    'OtherImportantInfo': '其他重要信息'
+    // CSV中使用的中文字段名（映射到自己）
+    '语言特殊要求': '语言特殊要求',
+    '申请者背景要求': '申请者背景要求',
+    '申请者学位要求': '申请者学位要求',
+    '项目特色': '项目特色',
+    '课程设置': '课程设置',
+    '其他重要信息': '其他重要信息'
     // ProgramID 已移除
   };
 
@@ -105,13 +105,13 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
       'TuitionFeeCNY': 2,
       'QSRank': 2,
       'Notes': 2,
-      // 六个新备注字段设为第二级重要性
-      'LanguageSpecialRequirements': 2,
-      'ApplicantBackgroundRequirements': 2,
-      'ApplicantDegreeRequirements': 2,
-      'ProgramFeatures': 2,
-      'CurriculumSetup': 2,
-      'OtherImportantInfo': 2,
+      // 六个新备注字段设为第二级重要性（使用中文字段名）
+      '语言特殊要求': 2,
+      '申请者背景要求': 2,
+      '申请者学位要求': 2,
+      '项目特色': 2,
+      '课程设置': 2,
+      '其他重要信息': 2,
       'Location': 3,
       'ProgramType': 3,
       'TuitionFeeLocal': 3,
@@ -149,13 +149,13 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
   const getColumnClass = (field: string): string => {
     const baseClass = (() => {
       if (field === 'Notes') return 'notes';
-      // 新增备注字段使用notes类样式
-      if (field === 'LanguageSpecialRequirements' || 
-          field === 'ApplicantBackgroundRequirements' || 
-          field === 'ApplicantDegreeRequirements' || 
-          field === 'ProgramFeatures' || 
-          field === 'CurriculumSetup' || 
-          field === 'OtherImportantInfo') return 'notes';
+      // 新增备注字段使用notes类样式（使用中文字段名）
+      if (field === '语言特殊要求' || 
+          field === '申请者背景要求' || 
+          field === '申请者学位要求' || 
+          field === '项目特色' || 
+          field === '课程设置' || 
+          field === '其他重要信息') return 'notes';
       if (field.includes('Fee') || field.includes('CNY') || field.includes('Local')) return 'number';
       if (field === 'QSRank') return 'short-text';
       if (field === 'Location' || field === 'Duration' || field === 'ProgramType') return 'short-text';
@@ -253,12 +253,12 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
                     key={field} 
                     className={getColumnClass(field)}
                     title={!isCompactMode && (field === 'Notes' || 
-                      field === 'LanguageSpecialRequirements' || 
-                      field === 'ApplicantBackgroundRequirements' || 
-                      field === 'ApplicantDegreeRequirements' || 
-                      field === 'ProgramFeatures' || 
-                      field === 'CurriculumSetup' || 
-                      field === 'OtherImportantInfo') ? String(row[field] || '') : undefined}
+                      field === '语言特殊要求' || 
+                      field === '申请者背景要求' || 
+                      field === '申请者学位要求' || 
+                      field === '项目特色' || 
+                      field === '课程设置' || 
+                      field === '其他重要信息') ? String(row[field] || '') : undefined}
                   >
                     {formatCellContent(field, row[field])}
                   </td>
