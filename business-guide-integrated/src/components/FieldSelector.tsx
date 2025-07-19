@@ -7,6 +7,36 @@ interface Props {
 }
 
 export default function FieldSelector({ allFields, selectedFields, onChange }: Props) {
+  // 字段中文名称映射（与 ResultTable.tsx 保持一致）
+  const FIELD_LABELS: Record<string, string> = {
+    'University': '学校',
+    'Location': '地区',
+    'ProgramName': '项目名称',
+    'ProgramType': '项目类型',
+    'Duration': '学制',
+    'DeadlineRounds': '申请截止',
+    'TestRequiredGRE': 'GRE要求',
+    'TestRequiredGMAT': 'GMAT要求',
+    'LanguageTestTOEFL': 'TOEFL要求',
+    'LanguageTestIELTS': 'IELTS要求',
+    'Recommendations': '推荐信',
+    'VideoInterview': '面试要求',
+    'TuitionFeeLocal': '学费(当地)',
+    'TuitionFeeCNY': '学费(人民币)',
+    'QSRank': 'QS排名',
+    'Notes': '备注',
+    // 新增六个备注字段的中文标签
+    'LanguageSpecialRequirements': '语言特殊要求',
+    'ApplicantBackgroundRequirements': '申请者背景要求',
+    'ApplicantDegreeRequirements': '申请者学位要求',
+    'ProgramFeatures': '项目特色',
+    'CurriculumSetup': '课程设置',
+    'OtherImportantInfo': '其他重要信息'
+  };
+
+  // 过滤掉 ProgramID，只显示需要的字段
+  const displayFields = allFields.filter(field => field !== 'ProgramID');
+
   const toggleField = (field: string) => {
     if (selectedFields.includes(field)) {
       onChange(selectedFields.filter(f => f !== field));
@@ -15,9 +45,9 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
     }
   };
 
-  // 全选功能
+  // 全选功能（不包括 ProgramID）
   const selectAll = () => {
-    onChange(allFields);
+    onChange(displayFields);
   };
 
   // 全不选功能
@@ -25,8 +55,9 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
     onChange([]);
   };
 
-  // 判断是否全选
-  const isAllSelected = selectedFields.length === allFields.length;
+  // 判断是否全选（不包括 ProgramID）
+  const isAllSelected = selectedFields.length === displayFields.length && 
+    displayFields.every(field => selectedFields.includes(field));
 
   return (
     <div style={{ margin: '1rem 0' }}>
@@ -43,7 +74,7 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
             color: '#666',
             marginRight: '1rem'
           }}>
-            已选择 {selectedFields.length} / {allFields.length} 个字段
+            已选择 {selectedFields.length} / {displayFields.length} 个字段
           </span>
           <button 
             onClick={selectAll}
@@ -87,7 +118,7 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
         borderRadius: '4px',
         backgroundColor: '#f8f9fa'
       }}>
-        {allFields.map((field) => (
+        {displayFields.map((field) => (
           <label 
             key={field}
             style={{
@@ -111,9 +142,10 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
               fontSize: '0.9rem',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
+              fontWeight: selectedFields.includes(field) ? '600' : 'normal'
             }}>
-              {field}
+              {FIELD_LABELS[field] || field}
             </span>
           </label>
         ))}
@@ -121,4 +153,3 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
     </div>
   );
 }
-  
