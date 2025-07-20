@@ -159,7 +159,9 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
       if (field.includes('Fee') || field.includes('CNY') || field.includes('Local')) return 'number';
       if (field === 'QSRank') return 'short-text';
       if (field === 'Location' || field === 'Duration' || field === 'ProgramType') return 'short-text';
-      if (field === 'University' || field === 'ProgramName') return 'medium-text';
+      // University和ProgramName使用新的可换行样式
+      if (field === 'University') return 'university-text';
+      if (field === 'ProgramName') return 'program-text';
       if (field.includes('IELTS') || field.includes('TOEFL') || field.includes('GRE')) return 'short-text';
       return 'medium-text';
     })();

@@ -126,9 +126,9 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
             <p>申请指南、项目分析、经验分享</p>
           </div>
           <div className="action-card disabled">
-            <span className="action-icon">🤖</span>
-            <h3>26fall AI选校定位工具</h3>
-            <p>敬请期待</p>
+            <span className="action-icon">🎯</span>
+            <h3>智能定制选校工具</h3>
+            <p>个性化问卷分析，精准匹配最适合你的项目</p>
           </div>
         </div>
       </section>
@@ -178,7 +178,7 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
               onClick={() => {
                 const wechatId = 'yuanshenanna';
                 navigator.clipboard.writeText(wechatId).then(() => {
-                  alert(' 微信号已复制到剪贴板！\n\n微信号：yuanshenanna\n（猿神安娜的全拼）\n\n请在微信中添加好友时粘贴使用～');
+                  alert('✅ 微信号已复制到剪贴板！\n\n微信号：yuanshenanna\n（猿神安娜的全拼，是不是很好记？😄）\n\n请在微信中添加好友时粘贴使用～');
                 }).catch(() => {
                   alert('微信号：yuanshenanna\n（猿神安娜的全拼）\n\n请手动复制微信号添加好友～');
                 });
@@ -199,7 +199,7 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
 
       {/* 更新提示 */}
       <section className="update-notice">
-        <p>本站内容会持续更新，现在网站在试运行阶段，谢谢大家的关注，也欢迎大家分享～</p>
+        <p>本站内容会持续更新，谢谢大家的关注，也欢迎大家分享～</p>
         
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

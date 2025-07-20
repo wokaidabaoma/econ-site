@@ -148,8 +148,8 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
             style={{
               padding: '4px 8px',
               fontSize: '0.8rem',
-              border: '1px solid #007bff',
-              backgroundColor: isAllSelected ? '#e9ecef' : '#007bff',
+              border: '1px solid #b5a082',
+              backgroundColor: isAllSelected ? '#e9ecef' : '#b5a082',
               color: isAllSelected ? '#6c757d' : 'white',
               borderRadius: '4px',
               cursor: isAllSelected ? 'not-allowed' : 'pointer'
@@ -163,8 +163,8 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
             style={{
               padding: '4px 8px',
               fontSize: '0.8rem',
-              border: '1px solid #dc3545',
-              backgroundColor: selectedFields.length === 0 ? '#e9ecef' : '#dc3545',
+              border: '1px solid #a89478',
+              backgroundColor: selectedFields.length === 0 ? '#e9ecef' : '#a89478',
               color: selectedFields.length === 0 ? '#6c757d' : 'white',
               borderRadius: '4px',
               cursor: selectedFields.length === 0 ? 'not-allowed' : 'pointer'
@@ -177,8 +177,8 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
             style={{
               padding: '4px 8px',
               fontSize: '0.8rem',
-              border: '1px solid #28a745',
-              backgroundColor: '#28a745',
+              border: '1px solid #c9b896',
+              backgroundColor: '#c9b896',
               color: 'white',
               borderRadius: '4px',
               cursor: 'pointer'
@@ -191,8 +191,8 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
             style={{
               padding: '4px 8px',
               fontSize: '0.8rem',
-              border: '1px solid #17a2b8',
-              backgroundColor: '#17a2b8',
+              border: '1px solid #d4c5a9',
+              backgroundColor: '#d4c5a9',
               color: 'white',
               borderRadius: '4px',
               cursor: 'pointer'
@@ -233,10 +233,10 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
                 padding: '0.25rem',
                 borderRadius: '2px',
                 transition: 'background-color 0.2s',
-                backgroundColor: isNewNoteField ? 'rgba(23, 162, 184, 0.1)' : 'transparent'
+                backgroundColor: isNewNoteField ? 'rgba(181, 160, 130, 0.1)' : 'transparent'
               }}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isNewNoteField ? 'rgba(23, 162, 184, 0.2)' : '#e9ecef'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = isNewNoteField ? 'rgba(23, 162, 184, 0.1)' : 'transparent'}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isNewNoteField ? 'rgba(181, 160, 130, 0.2)' : '#e9ecef'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = isNewNoteField ? 'rgba(181, 160, 130, 0.1)' : 'transparent'}
             >
               <input
                 type="checkbox"
@@ -250,7 +250,7 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
                 fontWeight: selectedFields.includes(field) ? '600' : 'normal',
-                color: isNewNoteField ? '#0c5460' : 'inherit'
+                color: isNewNoteField ? '#4a453f' : 'inherit'
               }}>
                 {FIELD_LABELS[field] || field}
                 {isNewNoteField && <span style={{ marginLeft: '4px', fontSize: '0.75rem' }}>📌</span>}
@@ -263,10 +263,10 @@ export default function FieldSelector({ allFields, selectedFields, onChange }: P
       <div style={{
         marginTop: '0.5rem',
         padding: '0.5rem',
-        backgroundColor: 'rgba(23, 162, 184, 0.1)',
+        backgroundColor: 'rgba(181, 160, 130, 0.1)',
         borderRadius: '4px',
         fontSize: '0.85rem',
-        color: '#0c5460'
+        color: '#4a453f'
       }}>
         💡 提示：带有 📌 标记的是新增的详细备注字段，包含语言特殊要求、申请者背景要求、学位要求、项目特色、课程设置等重要信息。
       </div>
