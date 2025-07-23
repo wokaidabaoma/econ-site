@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../App.css';
 import ResultTable from './ResultTable';
 import FieldSelector from './FieldSelector';
@@ -19,6 +19,8 @@ const SelectorApp: React.FC = () => {
   const csvUrl =
     'https://docs.google.com/spreadsheets/d/1kINLW00e-oPJB-a0M-kejB6PrGAhrKukuBViAHqxyPc/export?format=csv';
   const { data: programData, loading, error, retry } = useCSV(csvUrl);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
   const [selectedUniversity, setSelectedUniversity] = useState<OptionType[]>([]);
@@ -34,6 +36,12 @@ const SelectorApp: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
 
+  // 分享功能相关状态
+  const [showShareDialog, setShowShareDialog] = useState(false);
+  const [shareUrl, setShareUrl] = useState('');
+  const [isSharedView, setIsSharedView] = useState(false);
+  const [shareSource, setShareSource] = useState<string>('');
+
   const allFields = useMemo(
     () => {
       try {
@@ -45,6 +53,152 @@ const SelectorApp: React.FC = () => {
     },
     [programData]
   );
+
+  // 生成分享URL
+  const generateShareUrl = () => {
+    const params = new URLSearchParams();
+    
+    // 编码筛选条件
+    if (selectedLocation.length > 0) {
+      params.set('locations', selectedLocation.map(opt => opt.value).join(','));
+    }
+    if (selectedUniversity.length > 0) {
+      params.set('universities', selectedUniversity.map(opt => opt.value).join(','));
+    }
+    if (selectedProgramType.length > 0) {
+      params.set('programTypes', selectedProgramType.map(opt => opt.value).join(','));
+    }
+    if (selectedQSRank.length > 0) {
+      params.set('qsRanks', selectedQSRank.map(opt => opt.value).join(','));
+    }
+    if (selectedIELTS !== null) {
+      params.set('ielts', selectedIELTS.toString());
+    }
+    if (selectedTOEFL !== null) {
+      params.set('toefl', selectedTOEFL.toString());
+    }
+    if (selectedGRE.length > 0) {
+      params.set('gre', selectedGRE.map(opt => opt.value).join(','));
+    }
+    if (selectedFields.length > 0) {
+      params.set('fields', selectedFields.join(','));
+    }
+    
+    // 添加分享标识
+    params.set('shared', '1');
+    params.set('sharedAt', Date.now().toString());
+    
+    const baseUrl = window.location.origin + window.location.pathname;
+    return `${baseUrl}?${params.toString()}`;
+  };
+
+  // 从URL解析分享的筛选条件
+  const parseSharedFilters = () => {
+    const urlParams = new URLSearchParams(location.search);
+    
+    if (urlParams.get('shared') === '1') {
+      setIsSharedView(true);
+      setShareSource('一位热心用户');
+      
+      // 解析并应用筛选条件
+      const locations = urlParams.get('locations');
+      if (locations) {
+        const locationOpts = locations.split(',').map(val => ({ value: val, label: val }));
+        setSelectedLocation(locationOpts);
+      }
+      
+      const universities = urlParams.get('universities');
+      if (universities) {
+        const universityOpts = universities.split(',').map(val => ({ value: val, label: val }));
+        setSelectedUniversity(universityOpts);
+      }
+      
+      const programTypes = urlParams.get('programTypes');
+      if (programTypes) {
+        const programTypeOpts = programTypes.split(',').map(val => ({ value: val, label: val }));
+        setSelectedProgramType(programTypeOpts);
+      }
+      
+      const qsRanks = urlParams.get('qsRanks');
+      if (qsRanks) {
+        const qsRankOpts = qsRanks.split(',').map(val => ({ value: val, label: val === '50' ? '前50名' : val === '100' ? '前100名' : '前200名' }));
+        setSelectedQSRank(qsRankOpts);
+      }
+      
+      const ielts = urlParams.get('ielts');
+      if (ielts) {
+        setSelectedIELTS(parseFloat(ielts));
+      }
+      
+      const toefl = urlParams.get('toefl');
+      if (toefl) {
+        setSelectedTOEFL(parseInt(toefl));
+      }
+      
+      const gre = urlParams.get('gre');
+      if (gre) {
+        const greOpts = gre.split(',').map(val => ({ value: val, label: val }));
+        setSelectedGRE(greOpts);
+      }
+      
+      const fields = urlParams.get('fields');
+      if (fields) {
+        setSelectedFields(fields.split(','));
+      }
+    }
+  };
+
+  // 处理分享按钮点击
+  const handleShare = () => {
+    const url = generateShareUrl();
+    setShareUrl(url);
+    setShowShareDialog(true);
+  };
+
+  // 复制分享链接
+  const copyShareUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      alert('✅ 分享链接已复制到剪贴板！\n\n快去分享给你的朋友们吧～');
+    } catch (err) {
+      // 降级处理
+      const textArea = document.createElement('textarea');
+      textArea.value = shareUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      alert('✅ 分享链接已复制！');
+    }
+  };
+
+  // 分享到微信
+  const shareToWeChat = () => {
+    // 生成一个简短的分享文案
+    const filteredCount = filterData().length;
+    const shareText = `🎓 我用猿人之家筛选器找到了 ${filteredCount} 个合适的硕士项目！\n\n✨ 筛选条件：\n${selectedLocation.length > 0 ? `📍 地区：${selectedLocation.map(l => l.label).join('、')}\n` : ''}${selectedProgramType.length > 0 ? `📚 专业：${selectedProgramType.map(p => p.label).join('、')}\n` : ''}${selectedIELTS ? `📝 IELTS：${selectedIELTS}\n` : ''}${selectedTOEFL ? `📝 TOEFL：${selectedTOEFL}\n` : ''}\n点击链接查看详细结果：\n${shareUrl}\n\n#硕士申请 #留学规划 #猿人之家`;
+    
+    // 复制文案和链接
+    navigator.clipboard.writeText(shareText).then(() => {
+      alert('✅ 分享内容已复制！\n\n包含筛选结果和链接，可以直接粘贴到微信～');
+    });
+  };
+
+  // 重置筛选条件
+  const resetFilters = () => {
+    setSelectedLocation([]);
+    setSelectedUniversity([]);
+    setSelectedProgramType([]);
+    setSelectedQSRank([]);
+    setSelectedIELTS(null);
+    setSelectedTOEFL(null);
+    setSelectedGRE([]);
+    setSelectedFields([]);
+    setIsSharedView(false);
+    
+    // 清除URL参数
+    navigate(location.pathname, { replace: true });
+  };
 
   const getOptions = (field: string): OptionType[] => {
     // 数据未加载完成时返回空数组
@@ -221,6 +375,13 @@ const SelectorApp: React.FC = () => {
     setSelectedUniversity([]);
   }, [selectedLocation]);
 
+  // 页面加载时解析分享参数
+  useEffect(() => {
+    if (location.search) {
+      parseSharedFilters();
+    }
+  }, [location.search]);
+
   const handleUniversityChange = (newValue: MultiValue<OptionType>) => {
     setSelectedUniversity(Array.from(newValue));
   };
@@ -360,6 +521,49 @@ const SelectorApp: React.FC = () => {
           <p>猿人安妮 Anna Cao - 独立制作与维护, 持续更新中</p>
         </div>
       </div>
+
+      {/* 分享来源提示 */}
+      {isSharedView && (
+        <div style={{
+          background: 'linear-gradient(135deg, #f8f6f0 0%, #f4f2ed 100%)',
+          border: '1px solid rgba(181, 160, 130, 0.3)',
+          borderRadius: '12px',
+          padding: '1rem 1.5rem',
+          margin: '1rem 0',
+          textAlign: 'center'
+        }}>
+          <div style={{ 
+            fontSize: '1.1rem', 
+            fontWeight: '600', 
+            color: 'var(--text-primary)',
+            marginBottom: '0.5rem'
+          }}>
+            🎉 这是{shareSource}分享的筛选结果
+          </div>
+          <p style={{ 
+            margin: 0, 
+            fontSize: '0.9rem', 
+            color: 'var(--text-secondary)' 
+          }}>
+            已为你自动应用筛选条件，你也可以继续调整或分享给其他人
+          </p>
+          <button
+            onClick={resetFilters}
+            style={{
+              marginTop: '0.5rem',
+              padding: '0.4rem 1rem',
+              background: 'linear-gradient(135deg, #d4c5a9, #c9b896)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              fontSize: '0.8rem',
+              cursor: 'pointer'
+            }}
+          >
+            🔄 重新开始筛选
+          </button>
+        </div>
+      )}
 
       {/* 筛选器使用说明 */}
       <div className="usage-info">
@@ -628,26 +832,157 @@ const SelectorApp: React.FC = () => {
         </div>
       </div>
 
-      {/* 清除所有筛选按钮 */}
+      {/* 清除所有筛选和分享按钮 */}
       <div className="clear-filters">
-        <button 
-          onClick={() => {
-            setSelectedLocation([]);
-            setSelectedUniversity([]);
-            setSelectedProgramType([]);
-            setSelectedQSRank([]);
-            setSelectedIELTS(null);
-            setSelectedTOEFL(null);
-            setSelectedGRE([]);
-          }}
-          className="clear-button"
-        >
-          🗑️ 清除所有筛选
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <button 
+            onClick={() => {
+              setSelectedLocation([]);
+              setSelectedUniversity([]);
+              setSelectedProgramType([]);
+              setSelectedQSRank([]);
+              setSelectedIELTS(null);
+              setSelectedTOEFL(null);
+              setSelectedGRE([]);
+            }}
+            className="clear-button"
+          >
+            🗑️ 清除所有筛选
+          </button>
+          
+          {/* 分享按钮 */}
+          {filteredData.length > 0 && (
+            <button 
+              onClick={handleShare}
+              className="clear-button"
+              style={{ 
+                background: 'linear-gradient(135deg, #c8b59c, #b5a082)',
+                color: 'white'
+              }}
+            >
+              🔗 分享筛选结果
+            </button>
+          )}
+        </div>
+        
         <div className="results-count">
           共找到 {filteredData.length} 个项目
         </div>
       </div>
+
+      {/* 分享对话框 */}
+      {showShareDialog && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10000
+        }} onClick={() => setShowShareDialog(false)}>
+          <div style={{
+            background: 'white',
+            borderRadius: '16px',
+            padding: '2rem',
+            maxWidth: '500px',
+            width: '90%',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
+          }} onClick={(e) => e.stopPropagation()}>
+            <h3 style={{ 
+              margin: '0 0 1rem 0', 
+              color: 'var(--text-primary)',
+              textAlign: 'center'
+            }}>
+              🎉 分享你的筛选结果
+            </h3>
+            
+            <p style={{ 
+              textAlign: 'center', 
+              color: 'var(--text-secondary)',
+              marginBottom: '1.5rem'
+            }}>
+              已为你生成专属分享链接，包含当前所有筛选条件
+            </p>
+            
+            <div style={{
+              background: '#f8f9fa',
+              padding: '1rem',
+              borderRadius: '8px',
+              marginBottom: '1.5rem',
+              wordBreak: 'break-all',
+              fontSize: '0.9rem',
+              border: '1px solid #dee2e6'
+            }}>
+              {shareUrl}
+            </div>
+            
+            <div style={{
+              display: 'flex',
+              gap: '0.5rem',
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}>
+              <button
+                onClick={copyShareUrl}
+                style={{
+                  background: 'linear-gradient(135deg, #d4c5a9, #c9b896)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '0.75rem 1rem',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                  fontWeight: '600',
+                  flex: '1',
+                  minWidth: '120px'
+                }}
+              >
+                📋 复制链接
+              </button>
+              
+              <button
+                onClick={shareToWeChat}
+                style={{
+                  background: 'linear-gradient(135deg, #b8a690, #a89478)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '0.75rem 1rem',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                  fontWeight: '600',
+                  flex: '1',
+                  minWidth: '120px'
+                }}
+              >
+                💬 微信分享
+              </button>
+              
+              <button
+                onClick={() => setShowShareDialog(false)}
+                style={{
+                  background: 'linear-gradient(135deg, #9d8869, #8a7653)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '0.75rem 1rem',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                  fontWeight: '600',
+                  flex: '1',
+                  minWidth: '80px'
+                }}
+              >
+                关闭
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* QS排名筛选状态显示 */}
       {selectedQSRank.length > 0 && (

@@ -4,6 +4,7 @@ import './App.css';
 import SelectorApp from './components/SelectorApp';
 import Sidebar from './components/Sidebar';
 import ArticleView from './components/ArticleView';
+import FavoritesPage from './components/FavoritesPage';
 import { Analytics } from '@vercel/analytics/react';
 
 // 主页组件
@@ -103,6 +104,9 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
             <strong>📊 实时对比：</strong>学费、申请要求、截止时间一目了然，便于横向比较分析
           </div>
           <div className="feature-text-item">
+            <strong>⭐ 项目收藏：</strong>一键收藏心仪项目，保存你的筛选配置，建立个人申请清单
+          </div>
+          <div className="feature-text-item">
             <strong>📱 移动优化：</strong>手机、平板、电脑都有完美的使用体验，随时随地查看项目信息
           </div>
         </div>
@@ -115,7 +119,7 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
           >
             <span className="action-icon">🚀</span>
             <h3>进入信息库</h3>
-            <p>港新商科硕士项目筛选器</p>
+            <p>港新商科硕士项目筛选器，现支持项目收藏功能 ⭐</p>
           </div>
           <div 
             className="action-card clickable"
@@ -199,7 +203,7 @@ const HomePage: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
 
       {/* 更新提示 */}
       <section className="update-notice">
-        <p>本站内容会持续更新，谢谢大家的关注，也欢迎大家分享～</p>
+        <p>本站内容会持续更新，现在网站在试运行阶段，谢谢大家的关注，也欢迎大家分享～</p>
         
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -233,6 +237,7 @@ const Navigation: React.FC<{ onMenuClick: () => void }> = ({ onMenuClick }) => {
         <div className="nav-links">
           <Link to="/" className="nav-link">首页</Link>
           <Link to="/selector" className="nav-link">筛选器工具</Link>
+          <Link to="/favorites" className="nav-link">我的收藏 ⭐</Link>
         </div>
       </div>
     </nav>
@@ -260,6 +265,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<HomePage onMenuClick={toggleSidebar} />} />
             <Route path="/selector" element={<SelectorApp />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/article/:category/:filename" element={<ArticleView />} />
           </Routes>
         </main>

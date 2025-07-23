@@ -10,6 +10,7 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isCompactMode, setIsCompactMode] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [favorites, setFavorites] = useState<string[]>([]);
   
   const itemsPerPage = 10;
 
@@ -24,6 +25,47 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
     
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
+
+  // 加载收藏列表
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('program-favorites');
+    if (savedFavorites) {
+      try {
+        setFavorites(JSON.parse(savedFavorites));
+      } catch (error) {
+        console.error('加载收藏列表失败:', error);
+      }
+    }
+  }, []);
+
+  // 生成项目唯一ID
+  const generateProgramId = (item: any): string => {
+    return `${item.University}-${item.ProgramName}`.replace(/\s+/g, '-');
+  };
+
+  // 切换收藏状态
+  const toggleFavorite = (item: any) => {
+    const programId = generateProgramId(item);
+    const newFavorites = favorites.includes(programId)
+      ? favorites.filter(id => id !== programId)
+      : [...favorites, programId];
+    
+    setFavorites(newFavorites);
+    localStorage.setItem('program-favorites', JSON.stringify(newFavorites));
+    
+    if (newFavorites.includes(programId)) {
+      // 添加收藏：保存项目数据和用户当前选择的字段，确保数据格式正确
+      const favoriteData = {
+        item: item,                    // 项目数据
+        selectedFields: selectedFields, // 用户当前选择的字段
+        savedAt: new Date().toISOString() // 收藏时间
+      };
+      localStorage.setItem(`program-${programId}`, JSON.stringify(favoriteData));
+    } else {
+      // 移除收藏：删除项目数据
+      localStorage.removeItem(`program-${programId}`);
+    }
+  };
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
@@ -193,33 +235,49 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
   const hiddenFieldsCount = selectedFields.length - visibleFields.length;
 
   // 手机端卡片组件
-  const MobileCard: React.FC<{ item: any, index: number }> = ({ item, index }) => (
-    <div className="mobile-card" key={index}>
-      {/* 卡片水印 */}
-      <img 
-        src="/annie-watermark.png"
-        alt=""
-        className="card-watermark"
-        onError={(e) => {
-          console.error('手机端水印图片加载失败');
-          const target = e.currentTarget;
-          target.style.display = 'none';
-        }}
-        onLoad={() => {
-          console.log('✅ 手机端水印图片加载成功！');
-        }}
-      />
-      
-      <div className="card-content">
-        {visibleFields.map((field) => (
-          <div key={field} className="card-field">
-            <span className="field-label">{FIELD_LABELS[field] || field}：</span>
-            <span className="field-value">{formatCellContent(field, item[field])}</span>
+  const MobileCard: React.FC<{ item: any, index: number }> = ({ item, index }) => {
+    const programId = generateProgramId(item);
+    const isFavorited = favorites.includes(programId);
+
+    return (
+      <div className="mobile-card" key={index}>
+        {/* 卡片水印 */}
+        <img 
+          src="/annie-watermark.png"
+          alt=""
+          className="card-watermark"
+          onError={(e) => {
+            console.error('手机端水印图片加载失败');
+            const target = e.currentTarget;
+            target.style.display = 'none';
+          }}
+          onLoad={() => {
+            console.log('✅ 手机端水印图片加载成功！');
+          }}
+        />
+        
+        <div className="card-content">
+          {/* 收藏按钮 */}
+          <div className="card-favorite-header">
+            <button
+              onClick={() => toggleFavorite(item)}
+              className={`favorite-btn ${isFavorited ? 'favorited' : ''}`}
+              title={isFavorited ? '取消收藏' : '添加到收藏'}
+            >
+              {isFavorited ? '🌟' : '⭐'}
+            </button>
           </div>
-        ))}
+          
+          {visibleFields.map((field) => (
+            <div key={field} className="card-field">
+              <span className="field-label">{FIELD_LABELS[field] || field}：</span>
+              <span className="field-value">{formatCellContent(field, item[field])}</span>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   // 桌面端表格组件
   const DesktopTable: React.FC = () => (
@@ -240,6 +298,7 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
         }}>
           <thead>
             <tr>
+              <th className="favorite-column">收藏</th>
               {visibleFields.map(field => (
                 <th key={field} className={getColumnClass(field)}>
                   {FIELD_LABELS[field] || field}
@@ -248,25 +307,39 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
             </tr>
           </thead>
           <tbody>
-            {currentData.map((row, index) => (
-              <tr key={index}>
-                {visibleFields.map(field => (
-                  <td 
-                    key={field} 
-                    className={getColumnClass(field)}
-                    title={!isCompactMode && (field === 'Notes' || 
-                      field === '语言特殊要求' || 
-                      field === '申请者背景要求' || 
-                      field === '申请者学位要求' || 
-                      field === '项目特色' || 
-                      field === '课程设置' || 
-                      field === '其他重要信息') ? String(row[field] || '') : undefined}
-                  >
-                    {formatCellContent(field, row[field])}
+            {currentData.map((row, index) => {
+              const programId = generateProgramId(row);
+              const isFavorited = favorites.includes(programId);
+              
+              return (
+                <tr key={index}>
+                  <td className="favorite-column">
+                    <button
+                      onClick={() => toggleFavorite(row)}
+                      className={`favorite-btn ${isFavorited ? 'favorited' : ''}`}
+                      title={isFavorited ? '取消收藏' : '添加到收藏'}
+                    >
+                      {isFavorited ? '🌟' : '⭐'}
+                    </button>
                   </td>
-                ))}
-              </tr>
-            ))}
+                  {visibleFields.map(field => (
+                    <td 
+                      key={field} 
+                      className={getColumnClass(field)}
+                      title={!isCompactMode && (field === 'Notes' || 
+                        field === '语言特殊要求' || 
+                        field === '申请者背景要求' || 
+                        field === '申请者学位要求' || 
+                        field === '项目特色' || 
+                        field === '课程设置' || 
+                        field === '其他重要信息') ? String(row[field] || '') : undefined}
+                    >
+                      {formatCellContent(field, row[field])}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -355,7 +428,7 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
         <div className="table-info">
           <div>
             <strong>显示结果：</strong>
-            共 {data.length} 条记录，显示 {visibleFields.length} 列
+            共 {data.length} 条记录，显示 {visibleFields.length + 1} 列（含收藏列）
             {!isMobile && hiddenFieldsCount > 0 && (
               <span className="hidden-info">（已智能隐藏 {hiddenFieldsCount} 列）</span>
             )}

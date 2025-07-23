@@ -558,6 +558,60 @@
   line-height: 1.6;
 }
 
+/* 🎨 收藏功能样式 */
+.favorite-column {
+  min-width: 60px;
+  max-width: 60px;
+  text-align: center;
+  padding: 8px 4px;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+}
+
+.favorite-btn:hover {
+  background: rgba(181, 160, 130, 0.1);
+  transform: scale(1.1);
+}
+
+.favorite-btn.favorited {
+  animation: heartbeat 0.3s ease-in-out;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* 移动端收藏按钮样式 */
+.card-favorite-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(181, 160, 130, 0.1);
+}
+
+.card-favorite-header .favorite-btn {
+  font-size: 1.4rem;
+  width: 36px;
+  height: 36px;
+}
+
 /* 🎨 版权信息样式 */
 .copyright-info {
   background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f4 100%);
