@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../App.css';
 import './ResultTable.css';
+import { 
+  Star, 
+  StarSolid, 
+  Trash, 
+  Import, 
+  Check, 
+  Xmark,
+  ClipboardCheck,
+  LightBulb,
+  Rocket
+} from 'iconoir-react';
 
 const FavoritesPage: React.FC = () => {
+  const navigate = useNavigate();
   const [favorites, setFavorites] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -227,6 +239,19 @@ const FavoritesPage: React.FC = () => {
     }
   };
 
+  // 导入到申请跟踪器
+  const importToTracker = () => {
+    if (favorites.length === 0) {
+      alert('收藏夹为空，无项目可导入');
+      return;
+    }
+    
+    if (window.confirm(`确定要将 ${favorites.length} 个收藏项目导入到申请跟踪器吗？\n\n这些项目将被添加到您的申请管理列表中。`)) {
+      // 跳转到增强版跟踪器，带上导入标记
+      navigate('/enhanced-tracker?imported=true');
+    }
+  };
+
   // 加载收藏列表
   useEffect(() => {
     const loadFavorites = () => {
@@ -308,7 +333,9 @@ const FavoritesPage: React.FC = () => {
       <div className="selector-header">
         <Link to="/" className="back-to-home">← 返回首页</Link>
         <div className="header-content">
-          <h2>我的收藏 ⭐</h2>
+          <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            我的收藏 <Star width={20} height={20} color="var(--morandi-warning)" />
+          </h2>
           <p>你收藏的所有项目都在这里</p>
         </div>
         <Link to="/selector" className="back-to-home">回到筛选器 →</Link>
@@ -316,9 +343,11 @@ const FavoritesPage: React.FC = () => {
 
       {favorites.length === 0 ? (
         <div className="empty-state">
-          <p style={{ fontSize: '3rem', marginBottom: '1rem' }}>⭐</p>
+          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>
+            <Star width={48} height={48} color="var(--morandi-warning)" />
+          </div>
           <h3>还没有收藏任何项目</h3>
-          <p>去筛选器中找到心仪的项目，点击 ☆ 按钮收藏吧！</p>
+          <p>去筛选器中找到心仪的项目，点击 <Star width={16} height={16} style={{display: 'inline', verticalAlign: 'text-bottom'}} /> 按钮收藏吧！</p>
           <Link 
             to="/selector" 
             style={{
@@ -332,7 +361,8 @@ const FavoritesPage: React.FC = () => {
               fontWeight: '600'
             }}
           >
-            前往筛选器 🚀
+            <Rocket width={16} height={16} style={{ marginRight: '0.5rem' }} />
+            前往筛选器
           </Link>
         </div>
       ) : (
@@ -360,7 +390,16 @@ const FavoritesPage: React.FC = () => {
                   minWidth: 'auto'
                 }}
               >
-                {selectMode ? '✖️ 取消选择' : '☑️ 选择删除'}
+                {selectMode ? 
+                  <>
+                    <Xmark width={16} height={16} style={{ marginRight: '0.5rem' }} />
+                    取消选择
+                  </> : 
+                  <>
+                    <Check width={16} height={16} style={{ marginRight: '0.5rem' }} />
+                    选择删除
+                  </>
+                }
               </button>
 
               {/* 选择模式下的操作按钮 */}
@@ -390,9 +429,25 @@ const FavoritesPage: React.FC = () => {
                     }}
                     disabled={selectedItems.length === 0}
                   >
-                    🗑️ 删除选中 ({selectedItems.length})
+                    <Trash width={16} height={16} style={{ marginRight: '0.5rem' }} />
+                    删除选中 ({selectedItems.length})
                   </button>
                 </>
+              )}
+
+              {/* 导入到跟踪器按钮 */}
+              {!selectMode && (
+                <button 
+                  onClick={importToTracker}
+                  className="clear-button"
+                  style={{ 
+                    background: 'linear-gradient(135deg, #4caf50, #45a049)',
+                    minWidth: 'auto'
+                  }}
+                >
+                  <Import width={16} height={16} style={{ marginRight: '0.5rem' }} />
+                  导入到申请跟踪器
+                </button>
               )}
 
               {/* 清空所有按钮 */}
@@ -405,7 +460,8 @@ const FavoritesPage: React.FC = () => {
                     minWidth: 'auto'
                   }}
                 >
-                  🗑️ 清空所有收藏
+                  <Trash width={16} height={16} style={{ marginRight: '0.5rem' }} />
+                  清空所有收藏
                 </button>
               )}
             </div>
@@ -482,7 +538,7 @@ const FavoritesPage: React.FC = () => {
                           className="favorite-btn favorited"
                           title="取消收藏"
                         >
-                          <span className="star-icon">★</span>
+                          <StarSolid width={16} height={16} color="var(--morandi-warning)" />
                         </button>
                       )}
                     </div>
@@ -505,9 +561,15 @@ const FavoritesPage: React.FC = () => {
                       color: '#6b635a'
                     }}>
                       {favoriteData.selectedFields && favoriteData.selectedFields.length > 0 ? (
-                        `💾 显示${displayFields.length}个字段（按重要性排序）`
+                        <>
+                          <ClipboardCheck width={14} height={14} style={{ marginRight: '0.25rem' }} />
+                          显示{displayFields.length}个字段（按重要性排序）
+                        </>
                       ) : (
-                        '📋 显示默认主要字段'
+                        <>
+                          <ClipboardCheck width={14} height={14} style={{ marginRight: '0.25rem' }} />
+                          显示默认主要字段
+                        </>
                       )}
                     </div>
                     
@@ -538,7 +600,8 @@ const FavoritesPage: React.FC = () => {
             color: '#4a453f'
           }}>
             <p style={{ marginBottom: '0.5rem' }}>
-              💡 <strong>小贴士：</strong>
+              <LightBulb width={16} height={16} style={{ marginRight: '0.25rem' }} />
+              <strong>小贴士：</strong>
               {selectMode 
                 ? '勾选要删除的收藏项目，支持全选和批量删除'
                 : '使用"选择删除"可以精确管理你的收藏列表'

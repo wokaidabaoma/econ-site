@@ -264,7 +264,7 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
               className={`favorite-btn ${isFavorited ? 'favorited' : ''}`}
               title={isFavorited ? '取消收藏' : '添加到收藏'}
             >
-              {isFavorited ? '🌟' : '⭐'}
+              {isFavorited ? '⟡' : '☆'}
             </button>
           </div>
           
@@ -319,7 +319,7 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
                       className={`favorite-btn ${isFavorited ? 'favorited' : ''}`}
                       title={isFavorited ? '取消收藏' : '添加到收藏'}
                     >
-                      {isFavorited ? '🌟' : '⭐'}
+                      {isFavorited ? '⟡' : '☆'}
                     </button>
                   </td>
                   {visibleFields.map(field => (
@@ -416,7 +416,7 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
           borderRadius: '3px'
         }}
       >
-        🐒 猿人安妮
+        ⟣ 猿人安妮
       </div>
     </div>
   );
@@ -440,7 +440,7 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
                 onClick={() => setIsCompactMode(!isCompactMode)}
                 className={`mode-toggle ${isCompactMode ? 'active' : ''}`}
               >
-                {isCompactMode ? '📋 标准视图' : '📊 紧凑视图'}
+                {isCompactMode ? '⧨ 标准视图' : '⧪ 紧凑视图'}
               </button>
             </div>
           )}
@@ -449,7 +449,7 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
 
       {selectedFields.length === 0 ? (
         <div className="empty-state">
-          <p style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>📋</p>
+          <p style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>⧨</p>
           <p>请先选择要显示的字段</p>
         </div>
       ) : data.length === 0 ? (
@@ -491,7 +491,7 @@ const ResultTable: React.FC<ResultTableProps> = ({ data, selectedFields }) => {
           {/* 表格底部版权信息 */}
           <div className="copyright-info">
             <div className="copyright-main">
-              🐒 数据整理与维护：猿人安妮 Anna Cao
+              ⟣ 数据整理与维护：猿人安妮 Anna Cao
             </div>
             <div className="copyright-sub">
               个人网站：yuanrenannie.com | 小红书：@猿人安妮 | 数据持续更新中

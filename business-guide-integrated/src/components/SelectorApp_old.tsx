@@ -1,9 +1,9 @@
-// src/components/SelectorApp.tsx - 完全重构版本，无搜索功能，带字母索引
+// src/components/SelectorApp-new.tsx - 完全重构版本，1:1复刻设计稿
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../App.css';
 import './SelectorApp.css';
 import { useOptimizedCSV } from '../hooks/useOptimizedCSV';
-import { Search, OpenBook, Clock, Star, StarSolid } from 'iconoir-react';
 
 type ProjectType = {
   University: string;
@@ -40,6 +40,10 @@ const SelectorApp: React.FC = () => {
   const [selectedUniversities, setSelectedUniversities] = useState<string[]>([]);
   const [selectedProgramTypes, setSelectedProgramTypes] = useState<string[]>([]);
   const [selectedQSRanks, setSelectedQSRanks] = useState<string[]>([]);
+  const [ieltsMin, setIeltsMin] = useState<number>(0);
+  const [ieltsMax, setIeltsMax] = useState<number>(9);
+  const [toeflMin, setToeflMin] = useState<number>(0);
+  const [toeflMax, setToeflMax] = useState<number>(120);
   const [selectedGRE, setSelectedGRE] = useState<string[]>([]);
   
   // 字母索引筛选
@@ -48,6 +52,7 @@ const SelectorApp: React.FC = () => {
   // 显示设置
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [sortBy, setSortBy] = useState('QSRank');
   
   // 详情模态框
   const [selectedProgram, setSelectedProgram] = useState<ProjectType | null>(null);
@@ -65,6 +70,8 @@ const SelectorApp: React.FC = () => {
   const locations = useMemo(() => getUniqueOptions('Location'), [programData]);
   const universities = useMemo(() => getUniqueOptions('University'), [programData]);
   const programTypes = useMemo(() => getUniqueOptions('ProgramType'), [programData]);
+  const qsRanks = useMemo(() => getUniqueOptions('QSRank'), [programData]);
+  const greOptions = useMemo(() => getUniqueOptions('GRE'), [programData]);
 
   // 获取筛选后的学校列表（基于选中的地区和字母索引）
   const filteredUniversities = useMemo(() => {
@@ -127,33 +134,13 @@ const SelectorApp: React.FC = () => {
       }
       
       // QS排名筛选
-      if (selectedQSRanks.length > 0) {
-        const selectedRange = selectedQSRanks[0];
-        const qsRank = parseInt(item.QSRank);
-        
-        // 如果QS排名不是有效数字，跳过该项目
-        if (isNaN(qsRank)) {
-          return false;
-        }
-        
-        // 根据选择的范围进行筛选
-        if (selectedRange === "前50" && qsRank > 50) {
-          return false;
-        } else if (selectedRange === "前100" && qsRank > 100) {
-          return false;
-        } else if (selectedRange === "前200" && qsRank > 200) {
-          return false;
-        }
-      }
-      
-      // GRE要求筛选
-      if (selectedGRE.length > 0 && !selectedGRE.includes(item.TestRequiredGRE)) {
+      if (selectedQSRanks.length > 0 && !selectedQSRanks.includes(item.QSRank)) {
         return false;
       }
       
       return true;
     });
-  }, [programData, selectedLocations, selectedUniversities, selectedProgramTypes, selectedQSRanks, selectedGRE]);
+  }, [programData, selectedLocations, selectedUniversities, selectedProgramTypes, selectedQSRanks]);
 
   // 分页数据
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -168,6 +155,10 @@ const SelectorApp: React.FC = () => {
     setSelectedUniversities([]);
     setSelectedProgramTypes([]);
     setSelectedQSRanks([]);
+    setIeltsMin(0);
+    setIeltsMax(9);
+    setToeflMin(0);
+    setToeflMax(120);
     setSelectedGRE([]);
     setSelectedLetterIndex('');
     setCurrentPage(1);
@@ -185,7 +176,7 @@ const SelectorApp: React.FC = () => {
 
   // 生成项目唯一ID
   const generateProgramId = (program: ProjectType): string => {
-    return `${program.University}-${program.ProgramName}`.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '');
+    return `${program.University}-${program.ProgramName}`.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '');
   };
 
   // 加载收藏列表
@@ -269,12 +260,31 @@ const SelectorApp: React.FC = () => {
     );
   }
 
+  // 调试信息
+  console.log('SelectorApp 渲染 - 数据状态:', {
+    loading,
+    error,
+    dataLength: programData?.length,
+    filteredLength: filteredData?.length,
+    locations: locations.length,
+    universities: universities.length
+  });
+
   return (
     <div className="selector-app">
       {/* 页面头部 */}
       <div className="database-header">
         <div className="database-title-section">
-          <h1 className="database-title">美英港新等26fall商科硕士申请信息库</h1>
+          <h1 className="database-title">英港新商科硕士项目申请数据库</h1>
+          <p className="database-subtitle">
+            涵盖美英香港新加坡等地区商科交叉项目，持续更新维护中
+          </p>
+          {/* 调试信息 */}
+          {programData && (
+            <div style={{color: '#666', fontSize: '0.9rem', marginTop: '1rem'}}>
+              调试: 已加载 {programData.length} 条数据，筛选后 {filteredData.length} 条
+            </div>
+          )}
         </div>
       </div>
 
@@ -285,15 +295,14 @@ const SelectorApp: React.FC = () => {
         <div className="filter-panel">
           <div className="filter-header">
             <h2>
-              <span className="filter-icon">
-                <Search width={20} height={20} color="var(--morandi-sage)" />
-              </span>
+              <span className="filter-icon">🔍</span>
               筛选条件
             </h2>
             <button className="reset-filters" onClick={resetFilters}>
               重置
             </button>
           </div>
+
 
           {/* 地区筛选 */}
           <div className="filter-group">
@@ -404,7 +413,7 @@ const SelectorApp: React.FC = () => {
           <div className="filter-group">
             <label className="filter-label">GRE要求</label>
             <div className="checkbox-list">
-              {['Required', 'Recommended', 'Optional', 'Not Required'].map(gre => (
+              {Array.from(new Set(programData?.map(item => item.TestRequiredGRE).filter(Boolean))).map(gre => (
                 <div key={gre} className="checkbox-item">
                   <input
                     type="checkbox"
@@ -426,6 +435,21 @@ const SelectorApp: React.FC = () => {
 
         {/* 右侧结果区域 */}
         <div className="results-section">
+          {/* 结果头部 */}
+          <div className="results-header">
+            <div className="sort-controls">
+              <span className="sort-label">排序：</span>
+              <select 
+                className="sort-select"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="QSRank">QS排名</option>
+                <option value="University">学校名称</option>
+                <option value="Location">地区</option>
+              </select>
+            </div>
+          </div>
 
           {/* 结果统计 */}
           <div className="results-stats">
@@ -445,9 +469,7 @@ const SelectorApp: React.FC = () => {
                 padding: '3rem',
                 color: '#666'
               }}>
-                <div style={{fontSize: '2rem', marginBottom: '1rem'}}>
-                  <Search width={48} height={48} color="var(--morandi-text-muted)" />
-                </div>
+                <div style={{fontSize: '2rem', marginBottom: '1rem'}}>🔍</div>
                 <p>没有找到符合条件的项目</p>
                 <p style={{fontSize: '0.9rem'}}>尝试调整筛选条件或重置所有筛选</p>
               </div>
@@ -472,24 +494,13 @@ const SelectorApp: React.FC = () => {
                       }}
                       title={isFavorited(program) ? '取消收藏' : '收藏项目'}
                     >
-                      {isFavorited(program) ? 
-                        <StarSolid width={16} height={16} color="var(--morandi-warning)" /> : 
-                        <Star width={16} height={16} color="var(--morandi-text-muted)" />
-                      }
+                      {isFavorited(program) ? '★' : '☆'}
                     </button>
                   </div>
                   <h3 className="program-title">{program.ProgramName}</h3>
                   <div className="program-meta">
-                    <span>
-                      <OpenBook width={14} height={14} style={{ marginRight: '0.25rem' }} />
-                      {program.ProgramType}
-                    </span>
-                    {program.Duration && (
-                      <span>
-                        <Clock width={14} height={14} style={{ marginRight: '0.25rem' }} />
-                        {program.Duration}
-                      </span>
-                    )}
+                    <span>📚 {program.ProgramType}</span>
+                    {program.Duration && <span>⏱️ {program.Duration}</span>}
                   </div>
                 </div>
 

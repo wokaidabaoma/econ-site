@@ -1,0 +1,182 @@
+/* src/components/DetailedTableView.css */
+
+.detailed-table-view {
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.detailed-table-view table {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.detailed-table-view th {
+  position: sticky;
+  top: 0;
+  background: #f8f9fa !important;
+  z-index: 10;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  color: #495057;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.detailed-table-view td {
+  vertical-align: top;
+  border-right: 1px solid #f0f0f0;
+  white-space: nowrap;
+  min-height: 60px;
+}
+
+.detailed-table-view td:last-child {
+  border-right: none;
+}
+
+/* 响应式滚动 */
+.detailed-table-view div[style*="overflowX"] {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* 下拉选择器样式 */
+.detailed-table-view select {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.detailed-table-view select:hover {
+  border-color: var(--primary-color);
+}
+
+.detailed-table-view select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(52, 144, 220, 0.2);
+}
+
+/* 推荐人单元格特殊样式 */
+.detailed-table-view td:nth-child(9),
+.detailed-table-view td:nth-child(10),
+.detailed-table-view td:nth-child(11) {
+  white-space: normal;
+  min-width: 130px;
+}
+
+/* 状态指示器 */
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.status-completed {
+  background-color: #28a745;
+}
+
+.status-pending {
+  background-color: #ffc107;
+}
+
+.status-not-started {
+  background-color: #6c757d;
+}
+
+/* 截止日期样式 */
+.deadline-urgent {
+  color: #dc3545 !important;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+}
+
+.deadline-warning {
+  color: #fd7e14 !important;
+  font-weight: bold;
+}
+
+.deadline-normal {
+  color: #28a745;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* 模态框样式 */
+.modal-overlay {
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 表格行悬停效果 */
+.detailed-table-view tbody tr:hover {
+  background-color: #f8f9fa !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* 操作按钮样式 */
+.detailed-table-view button {
+  transition: all 0.2s ease;
+}
+
+.detailed-table-view button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 滚动条样式 */
+.detailed-table-view div[style*="overflowX"]::-webkit-scrollbar {
+  height: 8px;
+}
+
+.detailed-table-view div[style*="overflowX"]::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.detailed-table-view div[style*="overflowX"]::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.detailed-table-view div[style*="overflowX"]::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .detailed-table-view {
+    padding: 0.5rem;
+  }
+  
+  .detailed-table-view th,
+  .detailed-table-view td {
+    padding: 6px 4px;
+    font-size: 0.7rem;
+  }
+  
+  .detailed-table-view select {
+    font-size: 0.6rem;
+  }
+}

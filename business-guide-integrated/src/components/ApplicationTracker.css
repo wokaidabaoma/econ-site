@@ -1,0 +1,288 @@
+/* 3÷ß*h«pêrû7 */
+
+/* (;QÙø„«pêriØÏ */
+:root {
+  /* «pê;rû */
+  --morandi-beige: #d4c5a9;
+  --morandi-brown: #c9b896;
+  --morandi-sage: #b5a082;
+  --morandi-taupe: #a89478;
+  --morandi-stone: #9d8869;
+  
+  /* ¶ri«pêH,	 */
+  --morandi-success: #a8c5a0;    /* ÔŒÿr */
+  --morandi-warning: #d4b896;    /* ÔŒYr */
+  --morandi-info: #9bb3c7;       /* ÔŒÝr */
+  --morandi-danger: #c7a0a0;     /* ÔŒ¢r */
+  --morandi-purple: #b8a5c7;     /* ÔŒ+r */
+  
+  /* Ìor */
+  --morandi-bg-primary: #fefcfa;
+  --morandi-bg-secondary: #f7f4f0;
+  --morandi-bg-tertiary: #f0ede8;
+  
+  /* ‡,r */
+  --morandi-text-primary: #4a453f;
+  --morandi-text-secondary: #6b635a;
+  --morandi-text-muted: #8b8680;
+}
+
+/* ß*h¹h */
+.application-tracker {
+  background-color: var(--morandi-bg-primary);
+  color: var(--morandi-text-primary);
+}
+
+/* h<7 */
+.tracker-table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: var(--morandi-bg-primary);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(181, 160, 130, 0.15);
+}
+
+.tracker-table th {
+  background: linear-gradient(135deg, var(--morandi-beige) 0%, var(--morandi-brown) 100%);
+  color: var(--morandi-text-primary);
+  padding: 12px 8px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--morandi-taupe);
+}
+
+.tracker-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--morandi-bg-tertiary);
+}
+
+.tracker-table tr:nth-child(even) {
+  background-color: var(--morandi-bg-secondary);
+}
+
+.tracker-table tr:nth-child(odd) {
+  background-color: var(--morandi-bg-primary);
+}
+
+.tracker-table tr:hover {
+  background-color: var(--morandi-bg-tertiary);
+}
+
+/* ¨Pá¶ */
+.recommendation-completed {
+  background-color: rgba(168, 197, 160, 0.3) !important; /* ÔŒÿrÌo */
+}
+
+/* Õ¶ */
+.test-completed {
+  background-color: rgba(168, 197, 160, 0.3) !important; /* ÔŒÿrÌo */
+}
+
+.test-not-taken {
+  background-color: var(--morandi-bg-primary) !important;
+}
+
+/* 	®7Í™ */
+.tracker-btn-primary {
+  background-color: var(--morandi-sage) !important;
+  border-color: var(--morandi-sage) !important;
+  color: white !important;
+}
+
+.tracker-btn-primary:hover {
+  background-color: var(--morandi-taupe) !important;
+  border-color: var(--morandi-taupe) !important;
+}
+
+.tracker-btn-success {
+  background-color: var(--morandi-success) !important;
+  border-color: var(--morandi-success) !important;
+  color: white !important;
+}
+
+.tracker-btn-info {
+  background-color: var(--morandi-info) !important;
+  border-color: var(--morandi-info) !important;
+  color: white !important;
+}
+
+.tracker-btn-warning {
+  background-color: var(--morandi-warning) !important;
+  border-color: var(--morandi-warning) !important;
+  color: white !important;
+}
+
+.tracker-btn-purple {
+  background-color: var(--morandi-purple) !important;
+  border-color: var(--morandi-purple) !important;
+  color: white !important;
+}
+
+.tracker-btn-danger {
+  background-color: var(--morandi-danger) !important;
+  border-color: var(--morandi-danger) !important;
+  color: white !important;
+}
+
+/* û Õ	® */
+.add-test-btn {
+  font-size: 0.6rem;
+  padding: 2px 4px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.add-test-toefl {
+  background-color: var(--morandi-info) !important;
+}
+
+.add-test-toefl:hover {
+  background-color: var(--morandi-stone) !important;
+}
+
+.add-test-ielts {
+  background-color: var(--morandi-success) !important;
+}
+
+.add-test-ielts:hover {
+  background-color: var(--morandi-stone) !important;
+}
+
+.add-test-gre {
+  background-color: var(--morandi-purple) !important;
+}
+
+.add-test-gre:hover {
+  background-color: var(--morandi-stone) !important;
+}
+
+.add-test-gmat {
+  background-color: var(--morandi-warning) !important;
+}
+
+.add-test-gmat:hover {
+  background-color: var(--morandi-stone) !important;
+}
+
+/* ¶~ */
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-not-open {
+  background-color: rgba(139, 134, 128, 0.2);
+  color: var(--morandi-text-secondary);
+}
+
+.status-in-progress {
+  background-color: rgba(212, 184, 150, 0.3);
+  color: var(--morandi-stone);
+}
+
+.status-submitted {
+  background-color: rgba(168, 197, 160, 0.3);
+  color: var(--morandi-success);
+}
+
+.status-admitted {
+  background-color: rgba(168, 197, 160, 0.5);
+  color: var(--morandi-success);
+}
+
+.status-rejected {
+  background-color: rgba(199, 160, 160, 0.3);
+  color: var(--morandi-danger);
+}
+
+/* B§~ */
+.tier-badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.tier-lottery {
+  background-color: rgba(199, 160, 160, 0.3);
+  color: var(--morandi-danger);
+}
+
+.tier-reach {
+  background-color: rgba(212, 184, 150, 0.3);
+  color: var(--morandi-warning);
+}
+
+.tier-target {
+  background-color: rgba(168, 197, 160, 0.3);
+  color: var(--morandi-success);
+}
+
+.tier-safety {
+  background-color: rgba(155, 179, 199, 0.3);
+  color: var(--morandi-info);
+}
+
+/* !F7 */
+.tracker-modal-overlay {
+  background: rgba(74, 69, 63, 0.5) !important;
+}
+
+.tracker-modal-content {
+  background-color: var(--morandi-bg-primary) !important;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(181, 160, 130, 0.25);
+}
+
+.tracker-modal-header {
+  background: linear-gradient(135deg, var(--morandi-beige) 0%, var(--morandi-brown) 100%) !important;
+  color: var(--morandi-text-primary) !important;
+  border-radius: 16px 16px 0 0;
+}
+
+/* ß¡aG */
+.statistics-card {
+  background: var(--morandi-bg-primary);
+  border: 1px solid var(--morandi-bg-tertiary);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(181, 160, 130, 0.08);
+}
+
+.statistics-card .card-header {
+  background: linear-gradient(135deg, var(--morandi-beige) 0%, var(--morandi-brown) 100%);
+  color: var(--morandi-text-primary);
+  border-bottom: 1px solid var(--morandi-taupe);
+}
+
+/* Û¦a */
+.progress-bar {
+  background: linear-gradient(135deg, var(--morandi-sage) 0%, var(--morandi-taupe) 100%) !important;
+}
+
+/*  d	® */
+.delete-btn {
+  background-color: var(--morandi-danger) !important;
+  border: none;
+  color: white;
+  padding: 0 4px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 0.7rem;
+}
+
+.delete-btn:hover {
+  background-color: var(--morandi-stone) !important;
+}
+
+/* ŒÐ:‡, */
+.all-tests-added {
+  font-size: 0.6rem;
+  color: var(--morandi-text-muted);
+  padding: 2px 4px;
+  font-style: italic;
+}

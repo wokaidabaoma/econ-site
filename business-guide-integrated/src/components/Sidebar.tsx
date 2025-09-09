@@ -10,24 +10,24 @@ interface SidebarItem {
 
 const sidebarData: SidebarItem[] = [
   {
-    title: '🏠 首页',
+    title: '⌂ 首页',
     path: '/',
   },
   {
-    title: '📚 申请季Tips',
+    title: '⚏ 申请季Tips',
     children: [
-      { title: '💡 申请季前期- 心态与准备', path: '/article/update/update-1' },
-      { title: '📝 申请季中期- 网申注意事项', path: '/article/update/update-2' },
+      { title: '◯ 申请季前期- 心态与准备', path: '/article/update/update-1' },
+      { title: '⚞ 申请季中期- 网申注意事项', path: '/article/update/update-2' },
     ],
   },
   {
-    title: '📈 ECON',
+    title: '⟋ ECON',
     children: [
-      { title: '📖 目录 – 经济学方向 Intro', path: '/article/econ/intro' },
-      { title: '👨‍🎓 Chapter 0. 过来人的 econ 申请总结', path: '/article/econ/econ-0' },
-      { title: '🎯 Chapter 1. Econ 项目拆解总纲', path: '/article/econ/econ-1' },
+      { title: '⌘ 目录 – 经济学方向 Intro', path: '/article/econ/intro' },
+      { title: '⚇ Chapter 0. 过来人的 econ 申请总结', path: '/article/econ/econ-0' },
+      { title: '◉ Chapter 1. Econ 项目拆解总纲', path: '/article/econ/econ-1' },
       {
-        title: '🏛️ Chapter 2. "跳板硕"系列',
+        title: '⧇ Chapter 2. "跳板硕"系列',
         children: [
           { title: '2.0 跳板硕前言', path: '/article/econ/econ-2.0' },
           { title: '2.1 Uchi - MAPSS', path: '/article/econ/econ-2.1' },
@@ -46,7 +46,7 @@ const sidebarData: SidebarItem[] = [
         ],
       },
       {
-        title: '💼 Chapter 3. 偏就业导向econ硕',
+        title: '⟐ Chapter 3. 偏就业导向econ硕',
         children: [
           { title: '3.1 UCLA - MQE', path: '/article/econ/econ-3.1' },
           { title: '3.2 JHU MIEF', path: '/article/econ/econ-3.2' },
@@ -57,9 +57,9 @@ const sidebarData: SidebarItem[] = [
     ],
   },
   {
-    title: '📊 BA',
+    title: '⧪ BA',
     children: [
-      { title: '🚧 前言建设中...', path: '#' },
+      { title: '⧗ 前言建设中...', path: '#' },
       {
         title: 'Chapter 1. "更多元背景"系列',
         children: [
@@ -71,20 +71,16 @@ const sidebarData: SidebarItem[] = [
     ],
   },
   {
-    title: '💰 Finance',
+    title: '⟐ Finance',
     children: [
-      { title: '🚧 内容建设中...', path: '#' },
+      { title: '⧗ 内容建设中...', path: '#' },
     ],
   },
   {
-    title: '🏢 Management',
+    title: '⧉ Management',
     children: [
-      { title: '🚧 内容建设中...', path: '#' },
+      { title: '⧗ 内容建设中...', path: '#' },
     ],
-  },
-  {
-    title: '🎓 筛选器工具',
-    path: '/selector',
   },
 ];
 
@@ -146,7 +142,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       {isOpen && <div className="sidebar-overlay" onClick={onClose} />}
       <div className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
-          <h3>🐒 导航目录</h3>
+          <h3>⟣ 导航目录</h3>
           <button className="sidebar-close" onClick={onClose}>×</button>
         </div>
         <div className="sidebar-content">
